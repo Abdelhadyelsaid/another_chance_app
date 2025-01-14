@@ -8,6 +8,7 @@ class Route {
 class Routes {
 
   static final Route home =  Route(name: "home", path: "/");
+  static final Route layoutScreen =  Route(name: "layoutScreen", path: "/layoutScreen");
   static final Route onBoarding =  Route(name: "onBoarding", path: "/onBoarding");
   static final Route loginScreen = Route(name: "loginScreen", path: "/loginScreen");
   static final Route signupScreen = Route(name: "signupScreen", path: "/signupScreen");

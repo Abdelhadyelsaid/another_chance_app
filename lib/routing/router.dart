@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:another_chance/Features/Authentication/View/Screens/Signup_screen.dart';
 import 'package:another_chance/Features/Authentication/View/Screens/login_screen.dart';
+import 'package:another_chance/Features/Home/View/Screens/layout_screen.dart';
 import 'package:another_chance/Features/OnBoarding/View/Screens/onboarding_screen.dart';
 import 'package:another_chance/routing/routes.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +25,8 @@ class CustomRouter {
     signupScreen,
     forgetPasswordScreen,
     forgetPasswordOTPScreen,
-    forgetPasswordNewPasswordScreen
+    forgetPasswordNewPasswordScreen,
+    layoutScreen
   ];
 
   static final loginScreen = GoRoute(
@@ -62,6 +64,12 @@ class CustomRouter {
       name: Routes.forgetPasswordNewPasswordScreen.name,
       builder: (context, state) {
         return ResetConfirmPasswordScreen(token:state.extra as String ,);
+      });
+  static final layoutScreen = GoRoute(
+      path: Routes.layoutScreen.path,
+      name: Routes.layoutScreen.name,
+      builder: (context, state) {
+        return LayoutScreen();
       });
 }
 

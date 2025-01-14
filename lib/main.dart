@@ -1,4 +1,5 @@
 
+import 'package:another_chance/Features/Home/cubit/home_cubit.dart';
 import 'package:another_chance/routing/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
       child: MultiBlocProvider(
         providers: [
           BlocProvider(create: (context) => AuthCubit()),
+          BlocProvider(create: (context) => HomeCubit()),
         ],
         child: MaterialApp.router(
           debugShowCheckedModeBanner: false,

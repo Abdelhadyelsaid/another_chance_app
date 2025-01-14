@@ -9,7 +9,6 @@ import '../../../../Core/Shared/snack_bar.dart';
 import '../../../../routing/routes.dart';
 import '../../cubit/auth_cubit.dart';
 
-
 class LoginScreen extends StatelessWidget {
   final bool? isFromApp;
 
@@ -99,7 +98,7 @@ class LoginScreen extends StatelessWidget {
                               height: height * 0.01,
                             ),
                             DefaultTextFormField(
-                              textInputType: TextInputType.number,
+                              textInputType: TextInputType.text,
                               textDirection: TextDirection.ltr,
                               // suffixText: "  966+",
                               controller: cubit.loginPhoneController,
@@ -139,7 +138,8 @@ class LoginScreen extends StatelessWidget {
                             ),
                             TextButton(
                                 onPressed: () {
-                                 context.pushNamed(Routes.forgetPasswordScreen.name);
+                                  context.pushNamed(
+                                      Routes.forgetPasswordScreen.name);
                                   //
                                   // Navigator.push(
                                   //     context,
@@ -169,6 +169,7 @@ class LoginScreen extends StatelessWidget {
                                           .isNotEmpty &&
                                       cubit.loginPasswordController.text
                                           .isNotEmpty) {
+                                    context.pushNamed(Routes.layoutScreen.name);
                                     // cubit.login( cubit.loginPhoneController.text , cubit.loginPasswordController.text);
                                   } else {
                                     ScaffoldMessenger.of(context).showSnackBar(
