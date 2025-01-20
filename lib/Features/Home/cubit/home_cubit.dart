@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 
+import '../../Profile/View/Screens/profile_screen.dart';
 import '../View/Screens/product_screen.dart';
 import '../View/Screens/recycle_screen.dart';
 
@@ -28,7 +29,7 @@ class HomeCubit extends Cubit<HomeState> {
     const HomeScreen(),
     const ProductScreen(),
     const RecycleScreen(),
-    const ResetConfirmPasswordScreen(token: ""),
+    const ProfileScreen()
   ];
 
   int esimCount = 1;

@@ -16,5 +16,8 @@ class Routes {
   static final Route forgetPasswordNewPasswordScreen = Route(name: "forgetPasswordNewPasswordScreen", path: "/forget-password-new-password");
   static final Route forgetPasswordOTPScreen = Route(name: "forgetPasswordOTPScreen", path: "/forget-password-otp");
   static final Route productScreen = Route(name: "productScreen", path: "/productScreen");
+  static final Route accountInfoScreen = Route(name: "accountInfoScreen", path: "/accountInfoScreen");
+  static final Route contactScreen = Route(name: "contactScreen", path: "/contactScreen");
+  static final Route customerServiceScreen = Route(name: "customerServiceScreen", path: "/customerServiceScreen");
 
 }

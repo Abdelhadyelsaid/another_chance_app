@@ -45,6 +45,7 @@ class LoginScreen extends StatelessWidget {
                 backgroundColor: Colors.white,
                 body: SingleChildScrollView(
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       isFromApp == true
                           ? Column(

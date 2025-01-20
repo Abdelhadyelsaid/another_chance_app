@@ -5,6 +5,8 @@ import 'package:another_chance/Features/Home/View/Screens/layout_screen.dart';
 import 'package:another_chance/Features/Home/View/Screens/productDetails_screen.dart';
 import 'package:another_chance/Features/Home/View/Screens/product_screen.dart';
 import 'package:another_chance/Features/OnBoarding/View/Screens/onboarding_screen.dart';
+import 'package:another_chance/Features/Profile/View/Screens/account_info_screen.dart';
+import 'package:another_chance/Features/Profile/View/Screens/customerService_screen.dart';
 import 'package:another_chance/routing/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -12,6 +14,7 @@ import 'package:go_router/go_router.dart';
 import '../Features/Authentication/View/Screens/forget_password_screen.dart';
 import '../Features/Authentication/View/Screens/reset_confirm_password_screen.dart';
 import '../Features/Authentication/View/Screens/reset_password_otp_screen.dart';
+import '../Features/Profile/View/Screens/contact_screen.dart';
 
 class CustomRouter {
   static final rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -30,7 +33,9 @@ class CustomRouter {
     forgetPasswordNewPasswordScreen,
     layoutScreen,
     productScreen,
-
+    accountInfoScreen,
+    contactScreen,
+    customerServiceScreen
   ];
 
   static final loginScreen = GoRoute(
@@ -80,6 +85,24 @@ class CustomRouter {
       name: Routes.productScreen.name,
       builder: (context, state) {
         return ProductDetailsScreen();
+      });
+  static final accountInfoScreen = GoRoute(
+      path: Routes.accountInfoScreen.path,
+      name: Routes.accountInfoScreen.name,
+      builder: (context, state) {
+        return AccountInfoScreen();
+      });
+  static final contactScreen = GoRoute(
+      path: Routes.contactScreen.path,
+      name: Routes.contactScreen.name,
+      builder: (context, state) {
+        return ContactScreen();
+      });
+  static final customerServiceScreen = GoRoute(
+      path: Routes.customerServiceScreen.path,
+      name: Routes.customerServiceScreen.name,
+      builder: (context, state) {
+        return CustomerServiceScreen();
       });
 }
 
