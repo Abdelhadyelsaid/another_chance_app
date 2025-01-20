@@ -1,8 +1,10 @@
 import 'package:another_chance/Core/Shared/default_button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../Core/Const/colors.dart';
+import '../../../../routing/routes.dart';
 import '../Widgets/product_widget.dart';
 import '../Widgets/searchBar_widget.dart';
 
@@ -112,7 +114,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                   TextButton(
                     onPressed: () {
-                      // Handle "See All" button
+                    context.pushNamed(Routes.productScreen.name);
                     },
                     child: Text(
                       "See All",
@@ -139,6 +141,7 @@ class HomeScreen extends StatelessWidget {
                   );
                 },
               ),
+
               Padding(
                 padding:
                     EdgeInsets.symmetric(horizontal: .25.sw, vertical: .1.sh),
@@ -153,4 +156,50 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+
+void showTopSnackBar(BuildContext context, String message) {
+  // Get the overlay
+  final overlay = Overlay.of(context);
+
+  // Create an OverlayEntry
+  final overlayEntry = OverlayEntry(
+    builder: (context) => Positioned(
+      top: MediaQuery.of(context).padding.top + 10, // Below the status bar
+      left: 16,
+      right: 16,
+      child: Material(
+        elevation: 8,
+        borderRadius: BorderRadius.circular(8),
+        child: Container(
+          padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+          decoration: BoxDecoration(
+            color: Colors.blue,
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: Text(
+                  message,
+                  style: const TextStyle(color: Colors.white, fontSize: 16),
+                ),
+              ),
+              const Icon(Icons.info_outline, color: Colors.white),
+            ],
+          ),
+        ),
+      ),
+    ),
+  );
+
+  // Insert the OverlayEntry into the overlay
+  overlay?.insert(overlayEntry);
+
+  // Remove the OverlayEntry after a duration
+  Future.delayed(const Duration(seconds: 3), () {
+    overlayEntry.remove();
+  });
 }

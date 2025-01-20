@@ -8,10 +8,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 
+import '../View/Screens/product_screen.dart';
+import '../View/Screens/recycle_screen.dart';
+
 part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
   HomeCubit() : super(HomeInitial());
+
   static HomeCubit get(context) => BlocProvider.of<HomeCubit>(context);
   int selectedIndex = 0;
 
@@ -22,8 +26,22 @@ class HomeCubit extends Cubit<HomeState> {
 
   List<Widget> screens = [
     const HomeScreen(),
-    const ForgetPasswordScreen(),
-    const SignupScreen(),
+    const ProductScreen(),
+    const RecycleScreen(),
     const ResetConfirmPasswordScreen(token: ""),
   ];
+
+  int esimCount = 1;
+
+  void increaseEsimCount() {
+    esimCount++;
+    emit(ChangeEsimCountState());
+  }
+
+  void decreaseEsimCount() {
+    if (esimCount > 1) {
+      esimCount--;
+      emit(ChangeEsimCountState());
+    }
+  }
 }
