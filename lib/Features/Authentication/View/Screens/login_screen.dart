@@ -27,7 +27,7 @@ class LoginScreen extends StatelessWidget {
         }
         if (state is LoginSuccessState) {
           if (isFromApp == false || isFromApp == null) {
-            //context.goNamed(Routes.layoutScreen.name);
+            context.goNamed(Routes.layoutScreen.name);
           } else if (isFromApp == true) {
             context.pop();
           }
@@ -170,8 +170,7 @@ class LoginScreen extends StatelessWidget {
                                           .isNotEmpty &&
                                       cubit.loginPasswordController.text
                                           .isNotEmpty) {
-                                    context.pushNamed(Routes.layoutScreen.name);
-                                    // cubit.login( cubit.loginPhoneController.text , cubit.loginPasswordController.text);
+                                    cubit.login( cubit.loginPhoneController.text , cubit.loginPasswordController.text);
                                   } else {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(

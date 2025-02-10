@@ -20,7 +20,7 @@ class CustomRouter {
   static final rootNavigatorKey = GlobalKey<NavigatorState>();
   static final GoRouter _router = GoRouter(
       navigatorKey: rootNavigatorKey,
-      initialLocation: Routes.layoutScreen.path,
+      initialLocation: Routes.loginScreen.path,
       routes: _routes);
 
   static GoRouter get router => _router;

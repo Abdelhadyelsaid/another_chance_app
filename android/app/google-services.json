@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "657955008729",
+    "project_id": "anotherchance-dd531",
+    "storage_bucket": "anotherchance-dd531.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:657955008729:android:5a820a31ba0342dfb38ec8",
+        "android_client_info": {
+          "package_name": "com.example.another_chance"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANkvdTbFZb2i8X5nZCgVY9kqFIJ8mytNE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

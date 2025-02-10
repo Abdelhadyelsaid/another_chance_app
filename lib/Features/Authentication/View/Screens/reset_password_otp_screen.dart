@@ -73,18 +73,18 @@ class ResetPasswordOtpScreen extends StatelessWidget {
                 child: Column(
                   children: [
 
-                    Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 30),
-                      child: DefaultTextFormField(
-                        textAlign: TextAlign.center ,
-                        textDirection:  TextDirection.ltr,
-                        controller: cubit.restorePasswordOtpController,
-                        textInputType: TextInputType.number,
-                        onChanged: (value){
-                       //   cubit.restorePasswordOtpController.text =  arabicToEnglishNumber(  cubit.restorePasswordOtpController.text);
-                        },
-                      ),
-                    ),
+                    // Container(
+                    //   margin: const EdgeInsets.symmetric(horizontal: 30),
+                    //   child: DefaultTextFormField(
+                    //     textAlign: TextAlign.center ,
+                    //     textDirection:  TextDirection.ltr,
+                    //     controller: cubit.restorePasswordOtpController,
+                    //     textInputType: TextInputType.number,
+                    //     onChanged: (value){
+                    //    //   cubit.restorePasswordOtpController.text =  arabicToEnglishNumber(  cubit.restorePasswordOtpController.text);
+                    //     },
+                    //   ),
+                    // ),
 
                     SizedBox(
                       height: height * 0.01,
@@ -92,7 +92,7 @@ class ResetPasswordOtpScreen extends StatelessWidget {
                     state is TimerStopState || cubit.start == 0
                         ? TextButton(
                         onPressed: () {
-                        //  cubit.resendForgetPasswordRequest();
+                         cubit.resendForgetPasswordRequest();
                           cubit.resetTimer();
                           cubit.startTimer();
                         },
@@ -117,29 +117,9 @@ class ResetPasswordOtpScreen extends StatelessWidget {
                        isLoading: state is VerifyOtpAtForgetPasswordLoadingState ? true : false,
                         height: height * 0.06,
                         color: cPrimaryColor,
-                        text: "Verification",
+                        text: "OK",
                         onTap: () {
-                          if(cubit.restorePasswordOtpController.text.isNotEmpty){
-                            context.pushNamed(Routes.forgetPasswordNewPasswordScreen.name ,extra: "dfdf");
-                          //  cubit.verifyOtpAtForgetPassword();
-                          }else{
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                showCloseIcon: true,
-                                content:const  Text("ادخل رقم التحقق ",
-                                    style: TextStyle(
-                                        fontFamily: "Readex Pro",
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.w600)),
-                                duration: const Duration(seconds: 4),
-                                backgroundColor: Colors.red ,
-                                shape:
-                                RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                                // padding: const EdgeInsets.all(10),
-                                behavior: SnackBarBehavior.floating,
-                              ),
-                            );
-                          }
+                          context.pushNamed(Routes.loginScreen.name);
                         }),
                     SizedBox(
                       height: height * 0.01,
@@ -149,7 +129,7 @@ class ResetPasswordOtpScreen extends StatelessWidget {
                         color: cSecondaryColor,
                         text: "Back",
                         onTap: () {
-                          // cubit.resetTimer();
+                           cubit.resetTimer();
                           Navigator.pop(context);
                         }),
                     SizedBox(

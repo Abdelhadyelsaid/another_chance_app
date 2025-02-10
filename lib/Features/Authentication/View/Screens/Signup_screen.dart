@@ -6,31 +6,29 @@ import 'package:go_router/go_router.dart';
 import '../../../../Core/Const/colors.dart';
 import '../../../../Core/Shared/default_button_widget.dart';
 import '../../../../Core/Shared/default_textform_widget.dart';
+import '../../../../routing/routes.dart';
 import '../../cubit/auth_cubit.dart';
 
-
 class SignupScreen extends StatelessWidget {
-  final  bool? isFromApp ;
+  final bool? isFromApp;
+
   const SignupScreen({super.key, this.isFromApp});
 
   @override
   Widget build(BuildContext context) {
-
     var height = MediaQuery.of(context).size.height;
-    return  BlocConsumer<AuthCubit, AuthState>(
+    return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
-        // TODO: implement listener
-
-        if(state is SignUpErrorState){
-          customSnackBarr(context: context, text: state.message, color: Colors.red);
+        if (state is SignUpErrorState) {
+          customSnackBarr(
+              context: context, text: state.message, color: Colors.red);
         }
-        if(state is SignUpSuccessState){
-          if (isFromApp == false) {
-           // context.goNamed(Routes.loginScreen.name);
-          }else if(isFromApp==true){
-            context.pop();
-          }
-          customSnackBarr(context: context, text: "تم التسجيل بنجاح. يرجى تسجيل الدخول", color: Colors.green);
+        if (state is SignUpSuccessState) {
+          context.goNamed(Routes.loginScreen.name);
+          customSnackBarr(
+              context: context,
+              text: "تم التسجيل بنجاح. يرجى تسجيل الدخول",
+              color: Colors.green);
         }
       },
       builder: (context, state) {
@@ -47,28 +45,25 @@ class SignupScreen extends StatelessWidget {
                       ),
                       Center(
                           child: Text(
-                            "Sign Up",
-                            style: TextStyle(
-                                color: cPrimaryColor,
-                                fontFamily: "Readex Pro",
-                                fontSize: 30,
-                                fontWeight: FontWeight.bold),
-                          )),
+                        "Sign Up",
+                        style: TextStyle(
+                            color: cPrimaryColor,
+                            fontFamily: "Readex Pro",
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold),
+                      )),
                       SizedBox(
                         height: height * 0.03,
                       ),
                       SizedBox(
                         height: height * 0.03,
                       ),
-
-
-
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: Column(
                           children: [
                             ///first name
-                            const  Row(
+                            const Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Text("First Name",
@@ -90,7 +85,7 @@ class SignupScreen extends StatelessWidget {
                             ),
 
                             /// last name
-                            const  Row(
+                            const Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Text("Last Name",
@@ -110,8 +105,9 @@ class SignupScreen extends StatelessWidget {
                             SizedBox(
                               height: height * 0.01,
                             ),
+
                             ///phone number
-                            const  Row(
+                            const Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Text("Phone Number",
@@ -127,17 +123,15 @@ class SignupScreen extends StatelessWidget {
                             DefaultTextFormField(
                               textInputType: TextInputType.phone,
                               textDirection: TextDirection.ltr,
-                              // suffixText: "  966+",
-                              controller: cubit.signupPhoneController ,
-                              onChanged: (value){
-                              },
+                              controller: cubit.signupPhoneController,
+                              onChanged: (value) {},
                             ),
                             SizedBox(
                               height: height * 0.01,
                             ),
 
                             ///email
-                            const  Row(
+                            const Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Text("Email",
@@ -173,12 +167,18 @@ class SignupScreen extends StatelessWidget {
                               height: height * 0.01,
                             ),
                             DefaultTextFormField(
-                                suffixIcon: IconButton(onPressed: (){
-                                  cubit.changeShowPassword();
-                                }, icon:cubit.showPassword ? const Icon(Icons.visibility_off_outlined) : const Icon(Icons.remove_red_eye_outlined)),
+                                suffixIcon: IconButton(
+                                    onPressed: () {
+                                      cubit.changeShowPassword();
+                                    },
+                                    icon: cubit.showPassword
+                                        ? const Icon(
+                                            Icons.visibility_off_outlined)
+                                        : const Icon(
+                                            Icons.remove_red_eye_outlined)),
                                 textDirection: TextDirection.ltr,
                                 controller: cubit.signupPasswordController,
-                                obscureText:cubit.showPassword ? false : true),
+                                obscureText: cubit.showPassword ? false : true),
                             SizedBox(
                               height: height * 0.01,
                             ),
@@ -196,57 +196,97 @@ class SignupScreen extends StatelessWidget {
                               height: height * 0.01,
                             ),
                             DefaultTextFormField(
-                                suffixIcon: IconButton(onPressed: (){
-                                  cubit.changeConfirmShowPassword();
-                                }, icon:cubit.showConfirmPassword ? const Icon(Icons.visibility_off_outlined) : const Icon(Icons.remove_red_eye_outlined)),
+                                suffixIcon: IconButton(
+                                    onPressed: () {
+                                      cubit.changeConfirmShowPassword();
+                                    },
+                                    icon: cubit.showConfirmPassword
+                                        ? const Icon(
+                                            Icons.visibility_off_outlined)
+                                        : const Icon(
+                                            Icons.remove_red_eye_outlined)),
                                 textDirection: TextDirection.ltr,
-                                controller: cubit.signupConfirmPasswordController,
-                                obscureText:cubit.showConfirmPassword ? false : true),
+                                controller:
+                                    cubit.signupConfirmPasswordController,
+                                obscureText:
+                                    cubit.showConfirmPassword ? false : true),
 
                             SizedBox(
                               height: height * 0.1,
                             ),
                             DefaultButton(
-                                borderRadius: BorderRadius.circular(5) ,
-                                isLoading: state is SignUpLoadingState ? true : false,
+                                borderRadius: BorderRadius.circular(5),
+                                isLoading:
+                                    state is SignUpLoadingState ? true : false,
                                 height: height * 0.06,
                                 color: cPrimaryColor,
                                 text: "Register",
                                 onTap: () {
-
-                                  if(cubit.signupPhoneController.text.isNotEmpty && cubit.signupEmailController.text.isNotEmpty && cubit.signupPasswordController.text.isNotEmpty && cubit.signupFirstNameController.text.isNotEmpty  && cubit.signupLastNameController.text.isNotEmpty)
-                                  {
-                                  //  cubit.signUp( cubit.signupFirstNameController.text, cubit.signupLastNameController.text , cubit.signupPhoneController.text, cubit.signupEmailController.text, cubit.signupPasswordController.text);
-                                  }else{
+                                  if (cubit.signupPasswordController.text !=
+                                      cubit.signupConfirmPasswordController
+                                          .text) {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
                                         showCloseIcon: true,
-                                        content:const  Text("يرجى ملئ جميع البيانات !",
+                                        content: const Text(
+                                            "تحقق من تطابق كلمة المرور!",
                                             style: TextStyle(
                                                 fontFamily: "Readex Pro",
                                                 fontSize: 13,
                                                 fontWeight: FontWeight.w600)),
                                         duration: const Duration(seconds: 4),
-                                        backgroundColor: Colors.red ,
-                                        shape:
-                                        RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                                        backgroundColor: Colors.red,
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(8)),
+                                        // padding: const EdgeInsets.all(10),
+                                        behavior: SnackBarBehavior.floating,
+                                      ),
+                                    );
+                                  } else if (cubit.signupPhoneController.text
+                                          .isNotEmpty &&
+                                      cubit.signupEmailController.text
+                                          .isNotEmpty &&
+                                      cubit.signupPasswordController.text
+                                          .isNotEmpty &&
+                                      cubit.signupFirstNameController.text
+                                          .isNotEmpty &&
+                                      cubit.signupLastNameController.text
+                                          .isNotEmpty &&
+                                      cubit.signupConfirmPasswordController.text
+                                          .isNotEmpty) {
+                                    cubit.signUp(
+                                        cubit.signupEmailController.text,
+                                        cubit.signupPhoneController.text,
+                                        cubit.signupFirstNameController.text,
+                                        cubit.signupPasswordController.text,
+                                        cubit.signupLastNameController.text);
+                                  } else {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        showCloseIcon: true,
+                                        content: const Text(
+                                            "يرجى ملئ جميع البيانات !",
+                                            style: TextStyle(
+                                                fontFamily: "Readex Pro",
+                                                fontSize: 13,
+                                                fontWeight: FontWeight.w600)),
+                                        duration: const Duration(seconds: 4),
+                                        backgroundColor: Colors.red,
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(8)),
                                         // padding: const EdgeInsets.all(10),
                                         behavior: SnackBarBehavior.floating,
                                       ),
                                     );
                                   }
-
-
-
-                                }
-
-
-                            ),
+                                }),
                             SizedBox(
                               height: height * 0.01,
                             ),
                             DefaultButton(
-                                borderRadius: BorderRadius.circular(5) ,
+                                borderRadius: BorderRadius.circular(5),
                                 height: height * 0.06,
                                 color: cSecondaryColor,
                                 text: "Sign-In",
@@ -266,6 +306,5 @@ class SignupScreen extends StatelessWidget {
         );
       },
     );
-
   }
 }

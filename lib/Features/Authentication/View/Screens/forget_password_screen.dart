@@ -9,7 +9,6 @@ import '../../../../Core/Shared/snack_bar.dart';
 import '../../../../routing/routes.dart';
 import '../../cubit/auth_cubit.dart';
 
-
 class ForgetPasswordScreen extends StatelessWidget {
   const ForgetPasswordScreen({super.key});
 
@@ -45,12 +44,12 @@ class ForgetPasswordScreen extends StatelessWidget {
                     ),
                     Center(
                         child: Text(
-                          "Reset The Password",
-                          style: TextStyle(
-                              color: cPrimaryColor,
-                              fontFamily: "Readex Pro",
-                              fontSize: 14),
-                        )),
+                      "Reset The Password",
+                      style: TextStyle(
+                          color: cPrimaryColor,
+                          fontFamily: "Readex Pro",
+                          fontSize: 14),
+                    )),
                     SizedBox(
                       height: height * .1,
                     ),
@@ -98,9 +97,8 @@ class ForgetPasswordScreen extends StatelessWidget {
                             onTap: () {
                               if (cubit.forgetPasswordEmailController.text
                                   .isNotEmpty) {
-                                context.pushNamed(
-                                    Routes.forgetPasswordOTPScreen.name);
-                                 cubit.startTimer();
+                                cubit.sendForgetPasswordRequest();
+                                cubit.startTimer();
                               } else {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
