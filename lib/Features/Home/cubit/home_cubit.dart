@@ -1,7 +1,3 @@
-import 'package:another_chance/Features/Authentication/View/Screens/Signup_screen.dart';
-import 'package:another_chance/Features/Authentication/View/Screens/forget_password_screen.dart';
-import 'package:another_chance/Features/Authentication/View/Screens/login_screen.dart';
-import 'package:another_chance/Features/Authentication/View/Screens/reset_confirm_password_screen.dart';
 import 'package:another_chance/Features/Home/View/Screens/home_screen.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';

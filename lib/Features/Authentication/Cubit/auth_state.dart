@@ -56,11 +56,6 @@ class VerifyOtpAtForgetPasswordSuccessState extends AuthState {
   VerifyOtpAtForgetPasswordSuccessState(this.token);
 }
 
-class ResetPasswordLoadingState extends AuthState {}
-
-class ResetPasswordErrorState extends AuthState {}
-
-class ResetPasswordSuccessState extends AuthState {}
 
 class TimerStopState extends AuthState {}
 

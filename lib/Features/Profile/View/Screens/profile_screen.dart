@@ -17,11 +17,11 @@ class ProfileScreen extends StatelessWidget {
           child: Column(
             children: [
               SizedBox(
-                height:  .05.sh,
+                height: .05.sh,
               ),
               Container(
-                width:  .9.sw,
-                height:  .08.sh,
+                width: .9.sw,
+                height: .08.sh,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: Colors.white,
@@ -29,15 +29,15 @@ class ProfileScreen extends StatelessWidget {
                 child: Row(
                   children: [
                     Padding(
-                      padding:
-                      const EdgeInsets.only(right: 5, top: 8.0),
+                      padding: const EdgeInsets.only(right: 5, top: 8.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                              "${CacheHelper.getData(key: "firstName")}"??"Test",
+                              "${CacheHelper.getData(key: "firstName")}" ??
+                                  "Test",
                               style: const TextStyle(
-                                color:  Colors.black,
+                                color: Colors.black,
                                 fontSize: 14,
                                 fontWeight: FontWeight.bold,
                                 fontFamily: "Readex Pro",
@@ -45,7 +45,9 @@ class ProfileScreen extends StatelessWidget {
                           SizedBox(
                             height: .01.sh,
                           ),
-                          Text("${CacheHelper.getData(key: "phone") ?? CacheHelper.getData(key: "email")}"??"example@gmail.com",
+                          Text(
+                              "${CacheHelper.getData(key: "phone") ?? CacheHelper.getData(key: "email")}" ??
+                                  "example@gmail.com",
                               style: const TextStyle(
                                 color: Colors.black,
                                 fontSize: 12,
@@ -57,8 +59,9 @@ class ProfileScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(height: .02.sh,),
-
+              SizedBox(
+                height: .02.sh,
+              ),
               ProfileWidget(
                 title: "Account Info",
                 svgIcon: 'assets/icons/left_arrow_profile.svg',
@@ -70,17 +73,19 @@ class ProfileScreen extends StatelessWidget {
                 title: "Orders",
                 svgIcon: 'assets/icons/left_arrow_profile.svg',
                 onTap: () {
-                  context.pushNamed(Routes.contactScreen.name);
+                  // context.pushNamed(Routes.contactScreen.name);
                 },
               ),
               ProfileWidget(
                 title: "Contact Us",
                 svgIcon: 'assets/icons/left_arrow_profile.svg',
                 onTap: () {
-                  //context.pushNamed(Routes.orderScreen);
+                  context.pushNamed(Routes.contactScreen.name);
                 },
               ),
-              SizedBox(height: .1.sh,),
+              SizedBox(
+                height: .1.sh,
+              ),
               ProfileWidget(
                 title: "Customer Service",
                 svgIcon: 'assets/icons/left_arrow_profile.svg',
@@ -91,7 +96,7 @@ class ProfileScreen extends StatelessWidget {
               ProfileWidget(
                 title: "Log Out",
                 svgIcon: 'assets/icons/left_arrow_profile.svg',
-                onTap: () async{
+                onTap: () async {
                   await FirebaseAuth.instance.signOut();
                   CacheHelper.clear();
                   context.goNamed(Routes.loginScreen.name);

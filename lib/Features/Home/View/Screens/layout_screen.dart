@@ -4,6 +4,7 @@ import 'package:another_chance/Core/Helper/cache_helper.dart';
 import 'package:another_chance/Features/Home/cubit/home_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 
@@ -39,31 +40,52 @@ class LayoutScreen extends StatelessWidget {
             items: [
               BottomNavigationBarItem(
                 icon: cubit.selectedIndex == 0
-                    ? SvgPicture.asset('assets/icons/filled_home.svg')
-                    : SvgPicture.asset('assets/icons/home.svg'),
+                    ? SvgPicture.asset(
+                        'assets/icons/filled_home.svg',
+                        width: 50.w,
+                        height: 50.w,
+                      )
+                    : SvgPicture.asset(
+                        'assets/icons/home.svg',
+                      ),
                 label: "",
               ),
               BottomNavigationBarItem(
                 icon: cubit.selectedIndex == 1
-                    ? SvgPicture.asset('assets/icons/filled_profile.svg')
-                    : SvgPicture.asset('assets/icons/profile.svg'),
+                    ? Image.asset('assets/icons/box_filled.png',
+                        width: 50.w, height: 50.w)
+                    : Image.asset('assets/icons/box.png',
+                        width: 25, height: 25),
                 label: "",
               ),
               BottomNavigationBarItem(
                 icon: cubit.selectedIndex == 2
-                    ? SvgPicture.asset('assets/icons/filled_profile.svg')
-                    : SvgPicture.asset('assets/icons/profile.svg'),
+                    ? Image.asset(
+                        'assets/icons/recycle_filled.png',
+                        width: 50.w,
+                        height: 50.w,
+                      )
+                    : Image.asset(
+                        'assets/icons/recycle.png',
+                        width: 25,
+                        height: 25,
+                      ),
                 label: "",
               ),
               BottomNavigationBarItem(
                 icon: cubit.selectedIndex == 3
-                    ? SvgPicture.asset('assets/icons/filled_profile.svg')
-                    : SvgPicture.asset('assets/icons/profile.svg'),
+                    ? SvgPicture.asset(
+                        'assets/icons/filled_profile.svg',
+                        width: 50.w,
+                        height: 50.w,
+                      )
+                    : SvgPicture.asset(
+                        'assets/icons/profile.svg',
+                        width: 25,
+                        height: 25,
+                      ),
                 label: "",
               ),
-
-
-
             ],
           ),
         );

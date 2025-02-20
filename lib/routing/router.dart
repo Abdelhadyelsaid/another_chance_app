@@ -10,9 +10,7 @@ import 'package:another_chance/Features/Profile/View/Screens/customerService_scr
 import 'package:another_chance/routing/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-
 import '../Features/Authentication/View/Screens/forget_password_screen.dart';
-import '../Features/Authentication/View/Screens/reset_confirm_password_screen.dart';
 import '../Features/Authentication/View/Screens/reset_password_otp_screen.dart';
 import '../Features/Profile/View/Screens/contact_screen.dart';
 
@@ -30,7 +28,6 @@ class CustomRouter {
     signupScreen,
     forgetPasswordScreen,
     forgetPasswordOTPScreen,
-    forgetPasswordNewPasswordScreen,
     layoutScreen,
     productScreen,
     accountInfoScreen,
@@ -68,12 +65,7 @@ class CustomRouter {
       builder: (context, state) {
         return const ForgetPasswordScreen();
       });
-  static final forgetPasswordNewPasswordScreen = GoRoute(
-      path: Routes.forgetPasswordNewPasswordScreen.path,
-      name: Routes.forgetPasswordNewPasswordScreen.name,
-      builder: (context, state) {
-        return ResetConfirmPasswordScreen(token:state.extra as String ,);
-      });
+
   static final layoutScreen = GoRoute(
       path: Routes.layoutScreen.path,
       name: Routes.layoutScreen.name,
