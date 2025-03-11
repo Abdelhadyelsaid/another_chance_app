@@ -3,11 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-
 import '../../../../Core/Const/colors.dart';
 import '../../../../routing/routes.dart';
 import '../Widgets/description_widget.dart';
-import '../Widgets/floating_bottom_bar.dart';
 import '../Widgets/product_widget.dart';
 import '../Widgets/quantity_widget.dart';
 
@@ -18,13 +16,14 @@ class ProductDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: Padding(
-        padding:  EdgeInsets.only(left: .07.sw),
+        padding: EdgeInsets.only(left: .07.sw),
         child: Opacity(
           opacity: .8,
           child: Container(
             width: double.infinity,
             height: 80.0,
-            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(15),
@@ -39,14 +38,16 @@ class ProductDetailsScreen extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                 Column(
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text(
                       'Total Price',
                       style: TextStyle(fontSize: 16.0, color: Colors.grey),
                     ),
-                    SizedBox(height: .02.sh,),
+                    SizedBox(
+                      height: .02.sh,
+                    ),
                     const Text(
                       '500 EGP',
                       style: TextStyle(
@@ -56,11 +57,9 @@ class ProductDetailsScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-
-
                 ElevatedButton(
                   onPressed: () {
-
+                    context.pushNamed(Routes.cartScreen.name);
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: cPrimaryColor,

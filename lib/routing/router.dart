@@ -3,8 +3,8 @@ import 'package:another_chance/Features/Authentication/View/Screens/Signup_scree
 import 'package:another_chance/Features/Authentication/View/Screens/login_screen.dart';
 import 'package:another_chance/Features/Home/View/Screens/layout_screen.dart';
 import 'package:another_chance/Features/Home/View/Screens/productDetails_screen.dart';
-import 'package:another_chance/Features/Home/View/Screens/product_screen.dart';
 import 'package:another_chance/Features/OnBoarding/View/Screens/onboarding_screen.dart';
+import 'package:another_chance/Features/Product/View/Screens/cart_screen.dart';
 import 'package:another_chance/Features/Profile/View/Screens/account_info_screen.dart';
 import 'package:another_chance/Features/Profile/View/Screens/customerService_screen.dart';
 import 'package:another_chance/routing/routes.dart';
@@ -18,7 +18,7 @@ class CustomRouter {
   static final rootNavigatorKey = GlobalKey<NavigatorState>();
   static final GoRouter _router = GoRouter(
       navigatorKey: rootNavigatorKey,
-      initialLocation: Routes.loginScreen.path,
+      initialLocation: Routes.layoutScreen.path,
       routes: _routes);
 
   static GoRouter get router => _router;
@@ -32,7 +32,8 @@ class CustomRouter {
     productScreen,
     accountInfoScreen,
     contactScreen,
-    customerServiceScreen
+    customerServiceScreen,
+    cartScreen
   ];
 
   static final loginScreen = GoRoute(
@@ -95,6 +96,12 @@ class CustomRouter {
       name: Routes.customerServiceScreen.name,
       builder: (context, state) {
         return CustomerServiceScreen();
+      });
+  static final cartScreen = GoRoute(
+      path: Routes.cartScreen.path,
+      name: Routes.cartScreen.name,
+      builder: (context, state) {
+        return CartScreen();
       });
 }
 
