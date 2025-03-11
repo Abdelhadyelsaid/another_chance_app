@@ -1,8 +1,10 @@
 import 'package:another_chance/Core/Shared/default_button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../Core/Const/colors.dart';
+import '../../../../routing/routes.dart';
 import '../../../Profile/View/Widgets/header_text_widget.dart';
 import '../Widgets/cart_widget.dart';
 
@@ -22,13 +24,23 @@ class CartScreen extends StatelessWidget {
                 title: "Cart",
               ),
               CartWidget(),
-
               Spacer(),
-              DefaultButton(height: .05.sh, color: cPrimaryColor, text: "Add more products"),
+              DefaultButton(
+                  height: .05.sh,
+                  color: cPrimaryColor,
+                  text: "Add more products"),
               SizedBox(height: .02.sh),
-              DefaultButton(height: .05.sh, color: Colors.white, text: "Complete the order",borderColor: cPrimaryColor,textColor: cPrimaryColor,),
+              DefaultButton(
+                height: .05.sh,
+                color: Colors.white,
+                text: "Complete the order",
+                borderColor: cPrimaryColor,
+                textColor: cPrimaryColor,
+                onTap: () {
+                  context.pushNamed(Routes.thanksScreen.name);
+                },
+              ),
               SizedBox(height: .02.sh),
-
             ],
           ),
         ),

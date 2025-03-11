@@ -5,6 +5,7 @@ import 'package:another_chance/Features/Home/View/Screens/layout_screen.dart';
 import 'package:another_chance/Features/Home/View/Screens/productDetails_screen.dart';
 import 'package:another_chance/Features/OnBoarding/View/Screens/onboarding_screen.dart';
 import 'package:another_chance/Features/Product/View/Screens/cart_screen.dart';
+import 'package:another_chance/Features/Product/View/Screens/thanks_screen.dart';
 import 'package:another_chance/Features/Profile/View/Screens/account_info_screen.dart';
 import 'package:another_chance/Features/Profile/View/Screens/customerService_screen.dart';
 import 'package:another_chance/routing/routes.dart';
@@ -33,7 +34,8 @@ class CustomRouter {
     accountInfoScreen,
     contactScreen,
     customerServiceScreen,
-    cartScreen
+    cartScreen,
+    thanksScreen
   ];
 
   static final loginScreen = GoRoute(
@@ -102,6 +104,12 @@ class CustomRouter {
       name: Routes.cartScreen.name,
       builder: (context, state) {
         return CartScreen();
+      });
+  static final thanksScreen = GoRoute(
+      path: Routes.thanksScreen.path,
+      name: Routes.thanksScreen.name,
+      builder: (context, state) {
+        return ThanksScreen();
       });
 }
 

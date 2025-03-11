@@ -20,5 +20,6 @@ class Routes {
   static final Route contactScreen = Route(name: "contactScreen", path: "/contactScreen");
   static final Route customerServiceScreen = Route(name: "customerServiceScreen", path: "/customerServiceScreen");
   static final Route cartScreen = Route(name: "cartScreen", path: "/cartScreen");
+  static final Route thanksScreen = Route(name: "thanksScreen", path: "/thanksScreen");
 
 }
