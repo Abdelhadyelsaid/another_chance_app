@@ -4,9 +4,9 @@ import '../../../../Core/Const/colors.dart';
 import '../../Model/make_order_model.dart';
 
 class ThankYouOrderDetailsWidget extends StatelessWidget {
-  final MakeOrderModel makeOrderModel;
+  final MakeOrderModel? makeOrderModel;
 
-  const ThankYouOrderDetailsWidget({super.key, required this.makeOrderModel});
+  const ThankYouOrderDetailsWidget({super.key, this.makeOrderModel});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class ThankYouOrderDetailsWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Text(
-              "تفاصيل الطلب",
+              "OrderDetails",
               style: TextStyle(
                   color: cPrimaryColor,
                   fontSize: 16.sp,
@@ -45,7 +45,7 @@ class ThankYouOrderDetailsWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "السعر",
+                      "price",
                       style: TextStyle(
                           color: Colors.black,
                           fontSize: 12.sp,
@@ -56,7 +56,7 @@ class ThankYouOrderDetailsWidget extends StatelessWidget {
                       width: 40.w,
                     ),
                     Text(
-                      "الكمية",
+                      "Quantity",
                       style: TextStyle(
                           color: Colors.black,
                           fontSize: 12.sp,
@@ -67,7 +67,7 @@ class ThankYouOrderDetailsWidget extends StatelessWidget {
                       width: 200.w,
                     ),
                     Text(
-                      "المنتج",
+                      "Products",
                       style: TextStyle(
                           color: Colors.black,
                           fontSize: 12.sp,
@@ -89,7 +89,8 @@ class ThankYouOrderDetailsWidget extends StatelessWidget {
                             Expanded(
                                 flex: 1,
                                 child: Text(
-                                  "${(makeOrderModel.data!.products[index].price)! * (makeOrderModel.data!.products[index].count!)}\tجنيه",
+                                  // "${(makeOrderModel.data!.products[index].price)! * (makeOrderModel.data!.products[index].count!)}\tجنيه",
+                                  "",
                                   textAlign: TextAlign.left,
                                   textDirection: TextDirection.rtl,
                                   style: TextStyle(
@@ -101,7 +102,9 @@ class ThankYouOrderDetailsWidget extends StatelessWidget {
                             Expanded(
                                 flex: 1,
                                 child: Text(
-                                  "${makeOrderModel.data!.products[index].count!}",
+                                  // "${makeOrderModel.data!.products[index].count!}",
+                                  "",
+
                                   textAlign: TextAlign.left,
                                   style: TextStyle(
                                       color: Colors.black,
@@ -112,7 +115,9 @@ class ThankYouOrderDetailsWidget extends StatelessWidget {
                             Expanded(
                                 flex: 2,
                                 child: Text(
-                                  "${makeOrderModel.data!.products[index].name}",
+                                  // "${makeOrderModel.data!.products[index].name}",
+                                  "",
+
                                   textAlign: TextAlign.right,
                                   style: TextStyle(
                                       color: Colors.black,
@@ -125,7 +130,9 @@ class ThankYouOrderDetailsWidget extends StatelessWidget {
                     separatorBuilder: (context, index) => SizedBox(
                           height: 4.h,
                         ),
-                    itemCount: makeOrderModel.data!.products.length),
+                    itemCount: 2
+                    //  makeOrderModel.data!.products.length
+                    ),
               ],
             ),
           ),
@@ -140,7 +147,10 @@ class ThankYouOrderDetailsWidget extends StatelessWidget {
                 bottomLeft: Radius.circular(10.r)),
           ),
           child: Center(
-            child: Text("الإجمالي ${makeOrderModel.data!.totalPrice} جنيه",
+            child: Text(
+                //"الإجمالي ${makeOrderModel.data!.totalPrice} جنيه",
+                "",
+
                 style: TextStyle(
                     color: Colors.black,
                     fontSize: 14.sp,
@@ -152,4 +162,3 @@ class ThankYouOrderDetailsWidget extends StatelessWidget {
     );
   }
 }
-
