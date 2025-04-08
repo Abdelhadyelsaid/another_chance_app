@@ -7,18 +7,20 @@ import 'package:another_chance/Features/Product/View/Screens/cart_screen.dart';
 import 'package:another_chance/Features/Product/View/Screens/thanks_screen.dart';
 import 'package:another_chance/Features/Profile/View/Screens/account_info_screen.dart';
 import 'package:another_chance/Features/Profile/View/Screens/customerService_screen.dart';
+import 'package:another_chance/Features/Profile/View/Screens/orders_screen.dart';
 import 'package:another_chance/routing/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../Features/Authentication/View/Screens/forget_password_screen.dart';
 import '../Features/Authentication/View/Screens/reset_password_otp_screen.dart';
 import '../Features/Profile/View/Screens/contact_screen.dart';
+import '../Features/Profile/View/Screens/order_details_screen.dart';
 
 class CustomRouter {
   static final rootNavigatorKey = GlobalKey<NavigatorState>();
   static final GoRouter _router = GoRouter(
       navigatorKey: rootNavigatorKey,
-      initialLocation: Routes.onBoarding.path,
+      initialLocation: Routes.layoutScreen.path,
       routes: _routes);
 
   static GoRouter get router => _router;
@@ -34,7 +36,9 @@ class CustomRouter {
     contactScreen,
     customerServiceScreen,
     cartScreen,
-    thanksScreen
+    thanksScreen,
+    ordersScreen,
+    ordersDetailsScreen
   ];
 
   static final loginScreen = GoRoute(
@@ -110,6 +114,19 @@ class CustomRouter {
       builder: (context, state) {
         return const ThanksScreen();
       });
+  static final ordersScreen = GoRoute(
+      path: Routes.ordersScreen.path,
+      name: Routes.ordersScreen.name,
+      builder: (context, state) {
+        return const OrdersScreen();
+      });
+  static final ordersDetailsScreen = GoRoute(
+      path: Routes.ordersDetailsScreen.path,
+      name: Routes.ordersDetailsScreen.name,
+      builder: (context, state) {
+        return const OrderDetailsScreen();
+      });
+
 }
 
 class RouterTransitions {

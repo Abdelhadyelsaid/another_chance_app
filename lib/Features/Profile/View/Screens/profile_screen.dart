@@ -73,7 +73,7 @@ class ProfileScreen extends StatelessWidget {
                 title: "Orders",
                 svgIcon: 'assets/icons/left_arrow_profile.svg',
                 onTap: () {
-                  // context.pushNamed(Routes.contactScreen.name);
+                   context.pushNamed(Routes.ordersScreen.name);
                 },
               ),
               ProfileWidget(

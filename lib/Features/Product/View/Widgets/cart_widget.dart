@@ -10,7 +10,7 @@ class CartWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: .15.sh,
-    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
       decoration: BoxDecoration(
           color: Colors.white, borderRadius: BorderRadius.circular(15)),
       child: Row(
@@ -30,7 +30,8 @@ class CartWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [Text("Summer Jar Set"), Text("500")]),
           Column(
-            crossAxisAlignment: CrossAxisAlignment.end, // Aligns icon to the left
+            crossAxisAlignment: CrossAxisAlignment.end,
+            // Aligns icon to the left
             children: [
               IconButton(onPressed: () {}, icon: Icon(Icons.close)),
               Spacer(), // Pushes QuantityWidget to center
@@ -40,7 +41,6 @@ class CartWidget extends StatelessWidget {
               Spacer(), // Pushes everything evenly
             ],
           )
-
         ],
       ),
     );
