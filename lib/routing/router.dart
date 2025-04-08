@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:another_chance/Features/Authentication/View/Screens/Signup_screen.dart';
 import 'package:another_chance/Features/Authentication/View/Screens/login_screen.dart';
 import 'package:another_chance/Features/Home/View/Screens/layout_screen.dart';
@@ -19,7 +18,7 @@ class CustomRouter {
   static final rootNavigatorKey = GlobalKey<NavigatorState>();
   static final GoRouter _router = GoRouter(
       navigatorKey: rootNavigatorKey,
-      initialLocation: Routes.layoutScreen.path,
+      initialLocation: Routes.onBoarding.path,
       routes: _routes);
 
   static GoRouter get router => _router;
@@ -42,19 +41,19 @@ class CustomRouter {
       path: Routes.loginScreen.path,
       name: Routes.loginScreen.name,
       builder: (context, state) {
-        return LoginScreen();
+        return const LoginScreen();
       });
   static final signupScreen = GoRoute(
       path: Routes.signupScreen.path,
       name: Routes.signupScreen.name,
       builder: (context, state) {
-        return SignupScreen();
+        return const SignupScreen();
       });
   static final onBoarding = GoRoute(
       path: Routes.onBoarding.path,
       name: Routes.onBoarding.name,
       builder: (context, state) {
-        return OnBoardingPage();
+        return const OnBoardingPage();
       });
   static final forgetPasswordOTPScreen = GoRoute(
       path: Routes.forgetPasswordOTPScreen.path,
@@ -73,43 +72,43 @@ class CustomRouter {
       path: Routes.layoutScreen.path,
       name: Routes.layoutScreen.name,
       builder: (context, state) {
-        return LayoutScreen();
+        return const LayoutScreen();
       });
   static final productScreen = GoRoute(
       path: Routes.productScreen.path,
       name: Routes.productScreen.name,
       builder: (context, state) {
-        return ProductDetailsScreen();
+        return const ProductDetailsScreen();
       });
   static final accountInfoScreen = GoRoute(
       path: Routes.accountInfoScreen.path,
       name: Routes.accountInfoScreen.name,
       builder: (context, state) {
-        return AccountInfoScreen();
+        return const AccountInfoScreen();
       });
   static final contactScreen = GoRoute(
       path: Routes.contactScreen.path,
       name: Routes.contactScreen.name,
       builder: (context, state) {
-        return ContactScreen();
+        return const ContactScreen();
       });
   static final customerServiceScreen = GoRoute(
       path: Routes.customerServiceScreen.path,
       name: Routes.customerServiceScreen.name,
       builder: (context, state) {
-        return CustomerServiceScreen();
+        return const CustomerServiceScreen();
       });
   static final cartScreen = GoRoute(
       path: Routes.cartScreen.path,
       name: Routes.cartScreen.name,
       builder: (context, state) {
-        return CartScreen();
+        return const CartScreen();
       });
   static final thanksScreen = GoRoute(
       path: Routes.thanksScreen.path,
       name: Routes.thanksScreen.name,
       builder: (context, state) {
-        return ThanksScreen();
+        return const ThanksScreen();
       });
 }
 
