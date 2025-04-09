@@ -70,9 +70,13 @@ class ThanksScreen extends StatelessWidget {
               ThankYouOrderDetailsWidget(),
               const Spacer(),
               DefaultButton(
-                  height: .05.sh, color: cPrimaryColor, text: "My orders", onTap: () {
-             //   context.go(Routes..name);
-              },),
+                height: .05.sh,
+                color: cPrimaryColor,
+                text: "My orders",
+                onTap: () {
+                  context.pushNamed(Routes.ordersScreen.name);
+                },
+              ),
               SizedBox(height: .02.sh),
               DefaultButton(
                 height: .05.sh,

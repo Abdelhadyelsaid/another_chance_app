@@ -13,13 +13,13 @@ class ThankYouOrderDetailsWidget extends StatelessWidget {
     return Column(
       children: [
         Row(
-          mainAxisAlignment: MainAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Text(
               "OrderDetails",
               style: TextStyle(
-                  color: cPrimaryColor,
-                  fontSize: 16.sp,
+                  color: Color(0xff2B2B2B),
+                  fontSize: 20.sp,
                   fontWeight: FontWeight.w500,
                   fontFamily: "Readex Pro"),
             ),
@@ -45,21 +45,10 @@ class ThankYouOrderDetailsWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "price",
+                      "Product",
                       style: TextStyle(
                           color: Colors.black,
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w600,
-                          fontFamily: "Readex Pro"),
-                    ),
-                    SizedBox(
-                      width: 40.w,
-                    ),
-                    Text(
-                      "Quantity",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 12.sp,
+                          fontSize: 14.sp,
                           fontWeight: FontWeight.w600,
                           fontFamily: "Readex Pro"),
                     ),
@@ -67,10 +56,21 @@ class ThankYouOrderDetailsWidget extends StatelessWidget {
                       width: 200.w,
                     ),
                     Text(
-                      "Products",
+                      "Quantity",
                       style: TextStyle(
                           color: Colors.black,
-                          fontSize: 12.sp,
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w600,
+                          fontFamily: "Readex Pro"),
+                    ),
+                    SizedBox(
+                      width: 40.w,
+                    ),
+                    Text(
+                      "price",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 14.sp,
                           fontWeight: FontWeight.w600,
                           fontFamily: "Readex Pro"),
                     ),
@@ -150,7 +150,6 @@ class ThankYouOrderDetailsWidget extends StatelessWidget {
             child: Text(
                 //"الإجمالي ${makeOrderModel.data!.totalPrice} جنيه",
                 "",
-
                 style: TextStyle(
                     color: Colors.black,
                     fontSize: 14.sp,

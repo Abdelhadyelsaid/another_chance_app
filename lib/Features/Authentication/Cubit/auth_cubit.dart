@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 import '../../../Core/Helper/cache_helper.dart';
-
 part 'auth_state.dart';
+
 
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit() : super(AuthInitial());
