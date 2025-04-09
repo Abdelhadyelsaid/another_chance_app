@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:another_chance/Features/Home/View/Screens/home_screen.dart';
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
@@ -30,15 +33,37 @@ class HomeCubit extends Cubit<HomeState> {
 
   int esimCount = 1;
 
-  void increaseEsimCount() {
+  void increaseProductCount() {
     esimCount++;
     emit(ChangeEsimCountState());
   }
 
-  void decreaseEsimCount() {
+  void decreaseProductCount() {
     if (esimCount > 1) {
       esimCount--;
       emit(ChangeEsimCountState());
+    }
+  }
+
+  List<Map<String, dynamic>> products = [];
+
+  Future<void> getProducts(String storeId) async {
+    try {
+      emit(GetProductsLoading());
+      final querySnapshot = await FirebaseFirestore.instance
+          .collection('products').get();
+      products = querySnapshot.docs.map((doc) {
+        return {
+          'id': doc.id,
+          ...doc.data(),
+        };
+      }).toList();
+      log("This is products:${[products]}");
+      emit(GetProductsSuccess());
+    } catch (e) {
+      log(e.toString());
+      emit(GetProductsError());
+      throw Exception("failed to get store products");
     }
   }
 }

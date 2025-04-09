@@ -47,7 +47,7 @@ class QuantityWidget extends StatelessWidget {
               children: [
                 InkWell(
                   onTap: () {
-                    cubit.decreaseEsimCount();
+                    cubit.decreaseProductCount();
                   },
                   child: Container(
                     height: 24,
@@ -81,7 +81,7 @@ class QuantityWidget extends StatelessWidget {
                 ),
                 InkWell(
                   onTap: () {
-                    cubit.increaseEsimCount();
+                    cubit.increaseProductCount();
                   },
                   child: Container(
                     height: 24,
