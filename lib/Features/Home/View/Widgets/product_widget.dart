@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProductWidget extends StatelessWidget {
+  final Map<String, dynamic>? products;
+
+  const ProductWidget({super.key, this.products});
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -18,27 +22,28 @@ class ProductWidget extends StatelessWidget {
             // Image Placeholder
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Image.asset(
-                  'assets/icons/appIcon.png',
+                padding: EdgeInsets.all(8.0),
+                child: Image.network(
+                  products!['image'],
                   fit: BoxFit.contain,
                 ),
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
               child: Text(
-                "Summer Jar Set",
-                style: TextStyle(
+                products!['name'],
+                style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 16,
                 ),
                 textAlign: TextAlign.center,
               ),
             ),
-            const Text(
-              "500 EGP",
-              style: TextStyle(
+            Text(
+              "${products!['price']} EGP",
+              style: const TextStyle(
                 fontSize: 14,
                 color: Colors.grey,
               ),

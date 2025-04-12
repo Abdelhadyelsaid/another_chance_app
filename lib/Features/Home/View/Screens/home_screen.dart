@@ -1,5 +1,7 @@
 import 'package:another_chance/Core/Shared/default_button_widget.dart';
+import 'package:another_chance/Features/Home/cubit/home_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
@@ -54,13 +56,29 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 10),
-              SizedBox(
-                height: .3.sh, // Adjust height based on card size
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 5, // Adjust based on your data
-                  itemBuilder: (context, index) {
-                    return ProductWidget();
+              BlocProvider(
+                create: (context) => HomeCubit()..getProducts(),
+                child: BlocConsumer<HomeCubit, HomeState>(
+                  listener: (context, state) {},
+                  builder: (context, state) {
+                    return state is GetProductsLoading
+                        ? Center(
+                            child: CircularProgressIndicator(
+                            color: cPrimaryColor,
+                          ))
+                        : SizedBox(
+                            height: .3.sh,
+                            child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: context.read<HomeCubit>().products.length,
+                              itemBuilder: (context, index) {
+                                return ProductWidget(
+                                  products:
+                                      context.read<HomeCubit>().products[index],
+                                );
+                              },
+                            ),
+                          );
                   },
                 ),
               ),
@@ -114,7 +132,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                   TextButton(
                     onPressed: () {
-                    context.pushNamed(Routes.productScreen.name);
+                      context.pushNamed(Routes.productScreen.name);
                     },
                     child: Text(
                       "See All",
@@ -141,7 +159,6 @@ class HomeScreen extends StatelessWidget {
                   );
                 },
               ),
-
               Padding(
                 padding:
                     EdgeInsets.symmetric(horizontal: .25.sw, vertical: .1.sh),
@@ -157,7 +174,6 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
-
 
 void showTopSnackBar(BuildContext context, String message) {
   // Get the overlay

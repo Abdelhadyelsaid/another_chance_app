@@ -47,7 +47,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   List<Map<String, dynamic>> products = [];
 
-  Future<void> getProducts(String storeId) async {
+  Future<void> getProducts() async {
     try {
       emit(GetProductsLoading());
       final querySnapshot = await FirebaseFirestore.instance

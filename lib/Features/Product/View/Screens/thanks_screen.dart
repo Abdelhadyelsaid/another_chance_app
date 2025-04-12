@@ -55,10 +55,10 @@ class ThanksScreen extends StatelessWidget {
               SizedBox(
                 height: .03.sh,
               ),
-              Row(
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     "Your Order",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
