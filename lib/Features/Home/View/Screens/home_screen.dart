@@ -19,46 +19,48 @@ class HomeScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.only(left: .04.sw),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(
-                height: .1.sh,
-              ),
-              Image.asset('assets/icons/app_icon.png',
-                  height: 0.08.sh, color: cPrimaryColor),
-              SizedBox(
-                height: 0.05.sh,
-              ),
-              const SearchTextfieldWidget(),
-              SizedBox(
-                height: .05.sh,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    "Bestsellers",
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
+          child: BlocProvider(
+            create: (context) => HomeCubit()
+              ..getProducts()
+              ..getNewArrivalsProducts(),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(
+                  height: .1.sh,
+                ),
+                Image.asset('assets/icons/app_icon.png',
+                    height: 0.08.sh, color: cPrimaryColor),
+                SizedBox(
+                  height: 0.05.sh,
+                ),
+                const SearchTextfieldWidget(),
+                SizedBox(
+                  height: .05.sh,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      "Bestsellers",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      // Handle "See All" button
-                    },
-                    child: Text(
-                      "See All",
-                      style: TextStyle(color: cPrimaryColor),
+                    TextButton(
+                      onPressed: () {
+                        // Handle "See All" button
+                      },
+                      child: Text(
+                        "See All",
+                        style: TextStyle(color: cPrimaryColor),
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 10),
-              BlocProvider(
-                create: (context) => HomeCubit()..getProducts(),
-                child: BlocConsumer<HomeCubit, HomeState>(
+                  ],
+                ),
+                const SizedBox(height: 10),
+                BlocConsumer<HomeCubit, HomeState>(
                   listener: (context, state) {},
                   builder: (context, state) {
                     return state is GetProductsLoading
@@ -70,7 +72,8 @@ class HomeScreen extends StatelessWidget {
                             height: .3.sh,
                             child: ListView.builder(
                               scrollDirection: Axis.horizontal,
-                              itemCount: context.read<HomeCubit>().products.length,
+                              itemCount:
+                                  context.read<HomeCubit>().products.length,
                               itemBuilder: (context, index) {
                                 return ProductWidget(
                                   products:
@@ -81,93 +84,111 @@ class HomeScreen extends StatelessWidget {
                           );
                   },
                 ),
-              ),
-              SizedBox(
-                height: .05.sh,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    "New Arrivals",
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
+                SizedBox(
+                  height: .05.sh,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      "New Arrivals",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      // Handle "See All" button
-                    },
-                    child: Text(
-                      "See All",
-                      style: TextStyle(color: cPrimaryColor),
+                    TextButton(
+                      onPressed: () {
+                        // Handle "See All" button
+                      },
+                      child: Text(
+                        "See All",
+                        style: TextStyle(color: cPrimaryColor),
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 10),
-              SizedBox(
-                height: .3.sh, // Adjust height based on card size
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 5, // Adjust based on your data
-                  itemBuilder: (context, index) {
-                    return ProductWidget();
+                  ],
+                ),
+                const SizedBox(height: 10),
+                BlocConsumer<HomeCubit, HomeState>(
+                  listener: (context, state) {},
+                  builder: (context, state) {
+                    return state is GetNewArrivalsProductsLoading
+                        ? Center(
+                            child: CircularProgressIndicator(
+                            color: cPrimaryColor,
+                          ))
+                        : SizedBox(
+                            height: .3.sh, // Adjust height based on card size
+                            child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: context
+                                  .read<HomeCubit>()
+                                  .newArrivalsProducts
+                                  .length,
+                              // Adjust based on your data
+                              itemBuilder: (context, index) {
+                                return ProductWidget(
+                                  products: context
+                                      .read<HomeCubit>()
+                                      .newArrivalsProducts[index],
+                                );
+                              },
+                            ),
+                          );
                   },
                 ),
-              ),
-              SizedBox(
-                height: .05.sh,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    "Products",
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      context.pushNamed(Routes.productScreen.name);
-                    },
-                    child: Text(
-                      "See All",
-                      style: TextStyle(color: cPrimaryColor),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 10),
-              GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2, // Number of columns
-                  crossAxisSpacing: 10.0, // Spacing between columns
-                  mainAxisSpacing: 10.0, // Spacing between rows
-                  childAspectRatio: 0.75, // Adjust based on your card size
+                SizedBox(
+                  height: .05.sh,
                 ),
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: 6,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: ProductWidget(),
-                  );
-                },
-              ),
-              Padding(
-                padding:
-                    EdgeInsets.symmetric(horizontal: .25.sw, vertical: .1.sh),
-                child: DefaultButton(
-                    height: .05.sh,
-                    color: cPrimaryColor,
-                    text: "Show All Products"),
-              )
-            ],
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      "Products",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        context.pushNamed(Routes.productScreen.name);
+                      },
+                      child: Text(
+                        "See All",
+                        style: TextStyle(color: cPrimaryColor),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2, // Number of columns
+                    crossAxisSpacing: 10.0, // Spacing between columns
+                    mainAxisSpacing: 10.0, // Spacing between rows
+                    childAspectRatio: 0.75, // Adjust based on your card size
+                  ),
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: 6,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      child: ProductWidget(),
+                    );
+                  },
+                ),
+                Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: .25.sw, vertical: .1.sh),
+                  child: DefaultButton(
+                      height: .05.sh,
+                      color: cPrimaryColor,
+                      text: "Show All Products"),
+                )
+              ],
+            ),
           ),
         ),
       ),

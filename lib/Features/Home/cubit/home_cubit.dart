@@ -46,12 +46,15 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   List<Map<String, dynamic>> products = [];
+  List<Map<String, dynamic>> newArrivalsProducts = [];
 
   Future<void> getProducts() async {
     try {
       emit(GetProductsLoading());
       final querySnapshot = await FirebaseFirestore.instance
-          .collection('products').get();
+          .collection('products')
+          .orderBy('price', descending: false)
+          .get();
       products = querySnapshot.docs.map((doc) {
         return {
           'id': doc.id,
@@ -64,6 +67,31 @@ class HomeCubit extends Cubit<HomeState> {
       log(e.toString());
       emit(GetProductsError());
       throw Exception("failed to get store products");
+    }
+  }
+
+  Future<void> getNewArrivalsProducts() async {
+    try {
+      emit(GetNewArrivalsProductsLoading());
+      final querySnapshot = await FirebaseFirestore.instance
+          .collection('products')
+          .orderBy('created_at',
+              descending: true) // Sort by created_at in descending order
+          .get();
+
+      newArrivalsProducts = querySnapshot.docs.map((doc) {
+        return {
+          'id': doc.id,
+          ...doc.data(),
+        };
+      }).toList();
+
+      log("This is products: $newArrivalsProducts");
+      emit(GetNewArrivalsProductsSuccess());
+    } catch (e) {
+      log(e.toString());
+      emit(GetNewArrivalsProductsError());
+      throw Exception("Failed to get store products");
     }
   }
 }
