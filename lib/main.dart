@@ -1,4 +1,3 @@
-
 import 'package:another_chance/Features/Home/cubit/home_cubit.dart';
 import 'package:another_chance/routing/router.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -13,8 +12,7 @@ import 'Core/Helper/dio_helper.dart';
 import 'Features/Authentication/cubit/auth_cubit.dart';
 import 'firebase_options.dart';
 
-
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   Bloc.observer = MyBlocObserver();

@@ -64,7 +64,7 @@ class HomeCubit extends Cubit<HomeState> {
       }).toList();
       log("This is products:${[bestSellerProducts]}");
       emit(GetProductsSuccess());
-    } catch (e) {
+    } on FirebaseException catch (e) {
       log(e.toString());
       emit(GetProductsError());
       throw Exception("failed to get store products");
@@ -77,8 +77,9 @@ class HomeCubit extends Cubit<HomeState> {
       final querySnapshot = await FirebaseFirestore.instance
           .collection('products')
           .orderBy('created_at',
-              descending: true) // Sort by created_at in descending order
+              descending: true)
           .get();
+
       final querySnapshotAllProducts =
           await FirebaseFirestore.instance.collection('products').get();
 
@@ -97,7 +98,7 @@ class HomeCubit extends Cubit<HomeState> {
       }).toList();
       log("This is products: $newArrivalsProducts");
       emit(GetNewArrivalsProductsSuccess());
-    } catch (e) {
+    }on FirebaseException catch (e) {
       log(e.toString());
       emit(GetNewArrivalsProductsError());
       throw Exception("Failed to get store products");

@@ -82,7 +82,8 @@ class CustomRouter {
       path: Routes.productScreen.path,
       name: Routes.productScreen.name,
       builder: (context, state) {
-        return const ProductDetailsScreen();
+        final details = state.extra as Map<String, dynamic>;
+        return  ProductDetailsScreen(productId: details["productId"],);
       });
   static final accountInfoScreen = GoRoute(
       path: Routes.accountInfoScreen.path,
