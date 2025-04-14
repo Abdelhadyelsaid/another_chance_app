@@ -72,12 +72,15 @@ class HomeScreen extends StatelessWidget {
                             height: .3.sh,
                             child: ListView.builder(
                               scrollDirection: Axis.horizontal,
-                              itemCount:
-                                  context.read<HomeCubit>().products.length,
+                              itemCount: context
+                                  .read<HomeCubit>()
+                                  .bestSellerProducts
+                                  .length,
                               itemBuilder: (context, index) {
                                 return ProductWidget(
-                                  products:
-                                      context.read<HomeCubit>().products[index],
+                                  products: context
+                                      .read<HomeCubit>()
+                                      .bestSellerProducts[index],
                                 );
                               },
                             ),
@@ -162,21 +165,40 @@ class HomeScreen extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 10),
-                GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2, // Number of columns
-                    crossAxisSpacing: 10.0, // Spacing between columns
-                    mainAxisSpacing: 10.0, // Spacing between rows
-                    childAspectRatio: 0.75, // Adjust based on your card size
-                  ),
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: 6,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: ProductWidget(),
-                    );
+                BlocConsumer<HomeCubit, HomeState>(
+                  listener: (context, state) {
+                    // TODO: implement listener
+                  },
+                  builder: (context, state) {
+                    return state is GetNewArrivalsProductsLoading
+                        ? Center(
+                            child: CircularProgressIndicator(
+                            color: cPrimaryColor,
+                          ))
+                        : GridView.builder(
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2, // Number of columns
+                              crossAxisSpacing: 10.0, // Spacing between columns
+                              mainAxisSpacing: 10.0, // Spacing between rows
+                              childAspectRatio:
+                                  0.75, // Adjust based on your card size
+                            ),
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount:
+                                context.read<HomeCubit>().products.length,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 8.0),
+                                child: ProductWidget(
+                                    products: context
+                                        .read<HomeCubit>()
+                                        .products[index]),
+                              );
+                            },
+                          );
                   },
                 ),
                 Padding(

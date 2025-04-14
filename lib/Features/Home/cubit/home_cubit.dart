@@ -45,6 +45,7 @@ class HomeCubit extends Cubit<HomeState> {
     }
   }
 
+  List<Map<String, dynamic>> bestSellerProducts = [];
   List<Map<String, dynamic>> products = [];
   List<Map<String, dynamic>> newArrivalsProducts = [];
 
@@ -55,13 +56,13 @@ class HomeCubit extends Cubit<HomeState> {
           .collection('products')
           .orderBy('price', descending: false)
           .get();
-      products = querySnapshot.docs.map((doc) {
+      bestSellerProducts = querySnapshot.docs.map((doc) {
         return {
           'id': doc.id,
           ...doc.data(),
         };
       }).toList();
-      log("This is products:${[products]}");
+      log("This is products:${[bestSellerProducts]}");
       emit(GetProductsSuccess());
     } catch (e) {
       log(e.toString());
@@ -78,6 +79,8 @@ class HomeCubit extends Cubit<HomeState> {
           .orderBy('created_at',
               descending: true) // Sort by created_at in descending order
           .get();
+      final querySnapshotAllProducts =
+          await FirebaseFirestore.instance.collection('products').get();
 
       newArrivalsProducts = querySnapshot.docs.map((doc) {
         return {
@@ -86,6 +89,12 @@ class HomeCubit extends Cubit<HomeState> {
         };
       }).toList();
 
+      products = querySnapshotAllProducts.docs.map((doc) {
+        return {
+          'id': doc.id,
+          ...doc.data(),
+        };
+      }).toList();
       log("This is products: $newArrivalsProducts");
       emit(GetNewArrivalsProductsSuccess());
     } catch (e) {
