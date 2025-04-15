@@ -1,11 +1,17 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProductDescriptionCard extends StatelessWidget {
+  const ProductDescriptionCard({super.key, required this.storeSnapshot});
+
+  final DocumentSnapshot storeSnapshot;
+
   @override
   Widget build(BuildContext context) {
     return Container(
-
       padding: const EdgeInsets.all(8),
+      width: 1.sw,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(8),
@@ -23,12 +29,13 @@ class ProductDescriptionCard extends StatelessWidget {
           const SizedBox(height: 8),
           _buildDescriptionRow(
             "Product Dimensions",
-            "32.51 x 21.84 x 12.19 cm; 952.54",
+            storeSnapshot["product_dimensions"],
           ),
-          _buildDescriptionRow("Grams Date First Available", "6 Jun. 2020"),
-          _buildDescriptionRow("Manufacturer", "Fila ASIN : B089RQLYNW"),
-          _buildDescriptionRow("Item model number", "5JM00948-990"),
-          _buildDescriptionRow("Department", "Women's"),
+          _buildDescriptionRow(
+              "Grams Date First Available", storeSnapshot["first_available"]),
+          _buildDescriptionRow(
+              "Item model number", storeSnapshot["model_number"]),
+          _buildDescriptionRow("Department", storeSnapshot["Department"]),
         ],
       ),
     );
@@ -52,4 +59,3 @@ class ProductDescriptionCard extends StatelessWidget {
     );
   }
 }
-

@@ -7,8 +7,8 @@ final class HomeInitial extends HomeState {}
 
 final class LayoutChangeState extends HomeState {}
 
-/// change esim count
-final class ChangeEsimCountState extends HomeState {}
+/// change product count
+final class ChangeProductCountState extends HomeState {}
 
 /// get store products
 final class GetProductsLoading extends HomeState {}

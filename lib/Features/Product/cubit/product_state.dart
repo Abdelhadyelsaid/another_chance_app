@@ -10,3 +10,6 @@ final class GetProductByIdLoading extends ProductState {}
 final class GetProductByIdSuccess extends ProductState {}
 
 final class GetProductByIdError extends ProductState {}
+
+/// change product count
+final class ChangeProductCountState extends ProductState {}

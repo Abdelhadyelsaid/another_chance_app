@@ -12,6 +12,7 @@ class ProductCubit extends Cubit<ProductState> {
 
   static ProductCubit get(context) => BlocProvider.of<ProductCubit>(context);
   DocumentSnapshot? storeSnapshot;
+  int productCount = 1;
 
   Future<void> getProductDetails({required String productId}) async {
     try {
@@ -27,6 +28,20 @@ class ProductCubit extends Cubit<ProductState> {
       log(e.toString());
       emit(GetProductByIdError());
       throw Exception("failed to get product details");
+    }
+  }
+
+  void increaseProductCount() {
+    if (productCount < 8) {
+      productCount++;
+      emit(ChangeProductCountState());
+    }
+  }
+
+  void decreaseProductCount() {
+    if (productCount > 1) {
+      productCount--;
+      emit(ChangeProductCountState());
     }
   }
 }

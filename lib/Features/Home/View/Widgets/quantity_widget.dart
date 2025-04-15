@@ -1,4 +1,6 @@
 import 'package:another_chance/Features/Home/cubit/home_cubit.dart';
+import 'package:another_chance/Features/Product/cubit/product_cubit.dart';
+import 'package:another_chance/Features/Product/cubit/product_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -6,39 +8,47 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../Core/Const/colors.dart';
 
 class QuantityWidget extends StatelessWidget {
-  const QuantityWidget({super.key, this.isCart = false});
+  const QuantityWidget(
+      {super.key, this.isCart = false, this.quantity, this.name});
 
   final bool isCart;
+  final int? quantity;
+  final String? name;
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<HomeCubit, HomeState>(
+    return BlocConsumer<ProductCubit, ProductState>(
       listener: (context, state) {},
       builder: (context, state) {
-        var cubit = HomeCubit.get(context);
+        var cubit = ProductCubit.get(context);
         return Row(
           children: [
-            Column(
-              children: [
-                isCart
-                    ? const SizedBox()
-                    : const Column(
-                        children: [
-                          Text(
-                            "Summer Jar Set",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 20),
-                          ),
-                          Text(
-                            "22 In Stock",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 14,
-                                color: Colors.grey),
-                          )
-                        ],
-                      ),
-              ],
+            Expanded(
+              child: Column(
+                children: [
+                  isCart
+                      ? const SizedBox()
+                      : Column(
+                          children: [
+                            Text(
+                              name ?? "",
+                              softWrap: true,
+                              maxLines: 2, // Adjust as needed
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 18),
+                            ),
+                            Text(
+                              "${quantity ?? 22} In Stock",
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14,
+                                  color: Colors.grey),
+                            )
+                          ],
+                        ),
+                ],
+              ),
             ),
             SizedBox(
               width: .1.sw,
@@ -69,7 +79,7 @@ class QuantityWidget extends StatelessWidget {
                   width: 15,
                 ),
                 Text(
-                  "${cubit.esimCount}",
+                  "${cubit.productCount}",
                   style: const TextStyle(
                       fontFamily: "Readex Pro",
                       color: Colors.grey,

@@ -39,46 +39,56 @@ class ProductDetailsScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+              child: BlocConsumer<ProductCubit, ProductState>(
+                listener: (context, state) {},
+                builder: (context, state) {
+                  var cubit = ProductCubit.get(context);
+                  return
+                    state is GetProductByIdLoading?SizedBox():
+                    Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
-                        'Total Price',
-                        style: TextStyle(fontSize: 16.0, color: Colors.grey),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'Total Price',
+                            style:
+                                TextStyle(fontSize: 16.0, color: Colors.grey),
+                          ),
+                          SizedBox(
+                            height: .02.sh,
+                          ),
+
+                          Text(
+                            '${cubit.storeSnapshot!["price"] * cubit.productCount} EGP',
+                            style: const TextStyle(
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
                       ),
-                      SizedBox(
-                        height: .02.sh,
-                      ),
-                      const Text(
-                        '500 EGP',
-                        style: TextStyle(
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.bold,
+                      ElevatedButton(
+                        onPressed: () {
+                          context.pushNamed(Routes.cartScreen.name);
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: cPrimaryColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 24.0, vertical: 12.0),
+                        ),
+                        child: const Text(
+                          'Add To Cart',
+                          style: TextStyle(fontSize: 16.0),
                         ),
                       ),
                     ],
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      context.pushNamed(Routes.cartScreen.name);
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: cPrimaryColor,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 24.0, vertical: 12.0),
-                    ),
-                    child: const Text(
-                      'Add To Cart',
-                      style: TextStyle(fontSize: 16.0),
-                    ),
-                  ),
-                ],
+                  );
+                },
               ),
             ),
           ),
@@ -110,7 +120,10 @@ class ProductDetailsScreen extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const QuantityWidget(),
+                              QuantityWidget(
+                                quantity: cubit.storeSnapshot!["stock"],
+                                name: cubit.storeSnapshot!["name"],
+                              ),
                               SizedBox(height: 16.h),
                               const Text(
                                 "Description",
@@ -120,7 +133,9 @@ class ProductDetailsScreen extends StatelessWidget {
                                 ),
                               ),
                               SizedBox(height: 8.h),
-                              ProductDescriptionCard(),
+                              ProductDescriptionCard(
+                                storeSnapshot: cubit.storeSnapshot!,
+                              ),
                               SizedBox(height: 15.h),
                               const Text(
                                 "Related Products",

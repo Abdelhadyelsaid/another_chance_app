@@ -33,12 +33,12 @@ class CartWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             // Aligns icon to the left
             children: [
-              IconButton(onPressed: () {}, icon: Icon(Icons.close)),
-              Spacer(), // Pushes QuantityWidget to center
-              QuantityWidget(
+              IconButton(onPressed: () {}, icon: const Icon(Icons.close)),
+              const Spacer(), // Pushes QuantityWidget to center
+              const QuantityWidget(
                 isCart: true,
               ),
-              Spacer(), // Pushes everything evenly
+              const Spacer(), // Pushes everything evenly
             ],
           )
         ],
