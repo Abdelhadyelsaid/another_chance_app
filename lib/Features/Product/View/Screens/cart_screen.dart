@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../Core/Const/colors.dart';
+import '../../../../Core/Shared/snack_bar.dart';
 import '../../../../routing/routes.dart';
 import '../../../Profile/View/Widgets/header_text_widget.dart';
 import '../Widgets/cart_widget.dart';
@@ -21,40 +22,62 @@ class CartScreen extends StatelessWidget {
           child: BlocProvider(
             create: (context) => ProductCubit()..getCartProducts(),
             child: BlocConsumer<ProductCubit, ProductState>(
-              listener: (context, state) {},
+              listener: (context, state) {
+                if (state is MakeOrderSuccess) {
+                  context.pushNamed(Routes.thanksScreen.name, extra: {
+                    "makeOrderModel":
+                        context.read<ProductCubit>().makeOrderModel
+                  });
+                }
+                if (state is MakeOrderError) {
+                  customSnackBarr(
+                      context: context,
+                      text: "Error make order",
+                      color: Colors.red);
+                }
+              },
               builder: (context, state) {
                 var cubit = ProductCubit.get(context);
                 return Column(
                   children: [
-                    const HeaderTextWidget(
+                    HeaderTextWidget(
                       title: "Cart",
-                      isCart: true,
+                      isCart: cubit.cartProducts.isEmpty ? false : true,
                     ),
-                    state is GetCartProductsLoading
+                    cubit.cartProducts.isEmpty
                         ? Center(
-                            child: CircularProgressIndicator(
-                            color: cPrimaryColor,
-                          ))
-                        : SizedBox(
-                            height: .6.sh,
-                            child: ListView.builder(
-                              shrinkWrap: true,
-                              itemCount: cubit.cartProducts.length,
-                              itemBuilder: (context, index) {
-                                final item = cubit.cartProducts[index];
-                                return CartWidget(
-                                  image: item['image'],
-                                  name: item['name'],
-                                  price: item['price'].toString(),
-                                  quantity: item['quantity'],
-                                  onRemove: () {
-                                    cubit.deleteProductFromCart(
-                                        item['productId']);
-                                  },
-                                );
-                              },
+                            child: Padding(
+                            padding: EdgeInsets.only(top: .4.sh),
+                            child: Text(
+                              "Add products to cart",
+                              style: TextStyle(fontSize: 20.sp),
                             ),
-                          ),
+                          ))
+                        : state is GetCartProductsLoading
+                            ? Center(
+                                child: CircularProgressIndicator(
+                                color: cPrimaryColor,
+                              ))
+                            : SizedBox(
+                                height: .6.sh,
+                                child: ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: cubit.cartProducts.length,
+                                  itemBuilder: (context, index) {
+                                    final item = cubit.cartProducts[index];
+                                    return CartWidget(
+                                      image: item['image'],
+                                      name: item['name'],
+                                      price: item['price'].toString(),
+                                      quantity: item['quantity'],
+                                      onRemove: () {
+                                        cubit.deleteProductFromCart(
+                                            item['productId']);
+                                      },
+                                    );
+                                  },
+                                ),
+                              ),
                     const Spacer(),
                     // DefaultButton(
                     //     height: .05.sh,
@@ -64,16 +87,21 @@ class CartScreen extends StatelessWidget {
                     //     },
                     //     text: "Add more products"),
                     SizedBox(height: .02.sh),
-                    DefaultButton(
-                      height: .05.sh,
-                      color: Colors.white,
-                      text: "Complete the order",
-                      borderColor: cPrimaryColor,
-                      textColor: cPrimaryColor,
-                      onTap: () {
-                        context.pushNamed(Routes.thanksScreen.name);
-                      },
-                    ),
+                    if (cubit.cartProducts.isNotEmpty)
+                      state is MakeOrderLoading
+                          ? CircularProgressIndicator(
+                              color: cPrimaryColor,
+                            )
+                          : DefaultButton(
+                              height: .05.sh,
+                              color: Colors.white,
+                              text: "Complete the order",
+                              borderColor: cPrimaryColor,
+                              textColor: cPrimaryColor,
+                              onTap: () async {
+                                await cubit.makeOrder();
+                              },
+                            ),
                     SizedBox(height: .02.sh),
                   ],
                 );

@@ -235,38 +235,27 @@ class ProductCubit extends Cubit<ProductState> {
   DocumentSnapshot? storeSnapshot;
   MakeOrderModel? makeOrderModel;
 
-  Future<void> makeOrder(BuildContext context, dynamic dataOfStore) async {
+  Future<void> makeOrder() async {
     try {
-      emit(MakeOrderLoading());
-      String userId = CacheHelper.getData(key: "userID");
-
       // 1. Fetch Cart Products
-      await getCartProducts(); // Ensures cartProducts is populated
+      await getCartProducts();
       if (cartProducts.isEmpty) {
         log("No products found in cart.");
         emit(MakeOrderError());
         return;
       }
-
+      emit(MakeOrderLoading());
+      String userId = CacheHelper.getData(key: "userID");
       // 2. Initialize variables
       List<Map<String, dynamic>> orderItems = [];
       num totalPrice = 0.0;
-      String storeId = cartProducts[0]["storeId"];
-
-      // Fetch store details
-      var storeDoc = await FirebaseFirestore.instance
-          .collection('stores')
-          .doc(storeId)
-          .get();
-      if (!storeDoc.exists) throw Exception("Store not found.");
-      Map<String, dynamic> storeData = storeDoc.data()!;
 
       // 3. Loop through cart items to prepare order data
       for (var cartItem in cartProducts) {
         String productId = cartItem['productId'];
         int quantity = cartItem['quantity'];
         log("This is new order1");
-        // Fetch product details
+
         var productDoc = await FirebaseFirestore.instance
             .collection('products')
             .doc(productId)
@@ -295,9 +284,6 @@ class ProductCubit extends Cubit<ProductState> {
       makeOrderModel = MakeOrderModel(
         data: Data(
           id: userId,
-          storeId: storeId,
-          storeName: storeData['name'],
-          logo: storeData['logo'],
           products: orderItems
               .map((item) => OrderProduct(
                   id: item['productId'],
@@ -308,8 +294,6 @@ class ProductCubit extends Cubit<ProductState> {
           totalPrice: totalPrice.toInt(),
           createdAt: Timestamp.now().toDate().toString(),
           orderId: newOrderId,
-          phone: storeData["phone"],
-          location: storeData["location"],
         ),
       );
 
@@ -320,14 +304,6 @@ class ProductCubit extends Cubit<ProductState> {
       await _clearCart(userId);
 
       emit(MakeOrderSuccess());
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => ThanksScreen(
-                // makeOrderModel: makeOrderModel!,
-                // storeData: dataOfStore,
-                ),
-          ));
     } catch (e) {
       log("Error making order: $e");
       emit(MakeOrderError());

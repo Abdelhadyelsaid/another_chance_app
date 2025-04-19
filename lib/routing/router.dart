@@ -20,7 +20,7 @@ class CustomRouter {
   static final rootNavigatorKey = GlobalKey<NavigatorState>();
   static final GoRouter _router = GoRouter(
       navigatorKey: rootNavigatorKey,
-      initialLocation: Routes.loginScreen.path,
+      initialLocation: Routes.layoutScreen.path,
       routes: _routes);
 
   static GoRouter get router => _router;
@@ -83,7 +83,9 @@ class CustomRouter {
       name: Routes.productScreen.name,
       builder: (context, state) {
         final details = state.extra as Map<String, dynamic>;
-        return  ProductDetailsScreen(productId: details["productId"],);
+        return ProductDetailsScreen(
+          productId: details["productId"],
+        );
       });
   static final accountInfoScreen = GoRoute(
       path: Routes.accountInfoScreen.path,
@@ -113,7 +115,10 @@ class CustomRouter {
       path: Routes.thanksScreen.path,
       name: Routes.thanksScreen.name,
       builder: (context, state) {
-        return const ThanksScreen();
+        final details = state.extra as Map<String, dynamic>;
+        return ThanksScreen(
+          makeOrderModel: details["makeOrderModel"],
+        );
       });
   static final ordersScreen = GoRoute(
       path: Routes.ordersScreen.path,
@@ -127,7 +132,6 @@ class CustomRouter {
       builder: (context, state) {
         return const OrderDetailsScreen();
       });
-
 }
 
 class RouterTransitions {
