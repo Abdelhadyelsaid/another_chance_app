@@ -36,5 +36,5 @@ class Routes {
   static final Route ordersScreen =
       Route(name: "ordersScreen", path: "/ordersScreen");
   static final Route ordersDetailsScreen =
-  Route(name: "ordersDetailsScreen", path: "/ordersDetailsScreen");
+      Route(name: "ordersDetailsScreen", path: "/ordersDetailsScreen");
 }

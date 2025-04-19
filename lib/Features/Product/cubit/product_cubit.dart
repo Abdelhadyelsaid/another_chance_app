@@ -237,7 +237,6 @@ class ProductCubit extends Cubit<ProductState> {
 
   Future<void> makeOrder() async {
     try {
-      // 1. Fetch Cart Products
       await getCartProducts();
       if (cartProducts.isEmpty) {
         log("No products found in cart.");
@@ -269,6 +268,7 @@ class ProductCubit extends Cubit<ProductState> {
         orderItems.add({
           'productId': productId,
           'productName': productData['name'],
+          'image': productData['image'],
           'price': productPrice,
           'quantity': quantity,
           'total': productPrice * quantity,
@@ -284,11 +284,13 @@ class ProductCubit extends Cubit<ProductState> {
       makeOrderModel = MakeOrderModel(
         data: Data(
           id: userId,
+          orderStatus: "Shipping",
           products: orderItems
               .map((item) => OrderProduct(
                   id: item['productId'],
                   name: item['productName'],
                   price: item['price'],
+                  image: item['image'],
                   count: item['quantity']))
               .toList(),
           totalPrice: totalPrice.toInt(),

@@ -25,6 +25,7 @@ class Data {
     required this.totalPrice,
     required this.createdAt,
     required this.orderId,
+    required this.orderStatus,
   });
 
   final String? id;
@@ -32,6 +33,7 @@ class Data {
   final int? totalPrice;
   final String? createdAt;
   final int? orderId;
+  final String? orderStatus;
 
   factory Data.fromJson(Map<String, dynamic> json) {
     return Data(
@@ -43,6 +45,7 @@ class Data {
       totalPrice: json["totalPrice"],
       createdAt: json["createdAt"],
       orderId: json["orderId"],
+      orderStatus: json['orderStatus'],
     );
   }
 
@@ -53,6 +56,7 @@ class Data {
       'totalPrice': totalPrice,
       'createdAt': createdAt,
       'orderId': orderId,
+      'orderStatus': orderStatus,
     };
   }
 }
@@ -63,10 +67,12 @@ class OrderProduct {
     required this.name,
     required this.price,
     required this.count,
+    required this.image,
   });
 
   final String? id;
   final String? name;
+  final String? image;
   final int? price;
   final int? count;
 
@@ -74,6 +80,7 @@ class OrderProduct {
     return OrderProduct(
       id: json["id"],
       name: json["name"],
+      image: json["image"],
       price: json["price"],
       count: json["count"],
     );
@@ -85,6 +92,7 @@ class OrderProduct {
       'name': name,
       'price': price,
       'count': count,
+      'image': image,
     };
   }
 }

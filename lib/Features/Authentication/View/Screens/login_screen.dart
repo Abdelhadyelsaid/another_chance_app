@@ -33,7 +33,7 @@ class LoginScreen extends StatelessWidget {
           }
           customSnackBarr(
               context: context,
-              text: "تم تسجيل الدخول بنجاح",
+              text: "Signed in Successfully!",
               color: Colors.green);
         }
       },

@@ -35,7 +35,6 @@ class MyApp extends StatelessWidget {
         providers: [
           BlocProvider(create: (context) => AuthCubit()),
           BlocProvider(create: (context) => HomeCubit()),
-          BlocProvider(create: (context) => ProductCubit()),
         ],
         child: MaterialApp.router(
           debugShowCheckedModeBanner: false,

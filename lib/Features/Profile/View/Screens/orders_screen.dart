@@ -1,7 +1,7 @@
+import 'package:another_chance/Features/Orders/cubit/orders_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../../../../Core/Const/colors.dart';
 import '../Widgets/header_text_widget.dart';
 import '../Widgets/order_card_widgets.dart';
 
@@ -11,31 +11,41 @@ class OrdersScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: cBackground,
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: .04.sw),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SafeArea(
-                child: HeaderTextWidget(
-                  title: "My Orders",
+
+      body: BlocProvider(
+        create: (context) => OrdersCubit()..getOrders(),
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: .04.sw),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SafeArea(
+                  child: HeaderTextWidget(
+                    title: "My Orders",
+                  ),
                 ),
-              ),
-              SizedBox(height: 16.h),
-              ListView.builder(
-                itemCount: 4,
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(), // Important!
-                itemBuilder: (context, index) {
-                  return const Padding(
-                    padding: EdgeInsets.only(bottom: 12),
-                    child: OrderCard(),
-                  );
-                },
-              ),
-            ],
+                SizedBox(height: 16.h),
+                BlocBuilder<OrdersCubit, OrdersState>(
+                  builder: (context, state) {
+                    var cubit = OrdersCubit.get(context);
+                    return ListView.builder(
+                      itemCount: cubit.orders.length,
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 12),
+                          child: OrderCard(
+                            orders: cubit.orders[index],
+                          ),
+                        );
+                      },
+                    );
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),
