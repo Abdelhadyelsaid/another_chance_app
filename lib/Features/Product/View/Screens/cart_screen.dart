@@ -1,5 +1,7 @@
 import 'package:another_chance/Core/Shared/default_button_widget.dart';
+import 'package:another_chance/Features/Product/cubit/product_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../Core/Const/colors.dart';
@@ -13,34 +15,70 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: cBackground,
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: .02.sw),
-          child: Column(
-            children: [
-              const HeaderTextWidget(
-                title: "Cart",
-              ),
-              const CartWidget(),
-              const Spacer(),
-              DefaultButton(
-                  height: .05.sh,
-                  color: cPrimaryColor,
-                  text: "Add more products"),
-              SizedBox(height: .02.sh),
-              DefaultButton(
-                height: .05.sh,
-                color: Colors.white,
-                text: "Complete the order",
-                borderColor: cPrimaryColor,
-                textColor: cPrimaryColor,
-                onTap: () {
-                  context.pushNamed(Routes.thanksScreen.name);
-                },
-              ),
-              SizedBox(height: .02.sh),
-            ],
+          child: BlocProvider(
+            create: (context) => ProductCubit()..getCartProducts(),
+            child: BlocConsumer<ProductCubit, ProductState>(
+              listener: (context, state) {},
+              builder: (context, state) {
+                var cubit = ProductCubit.get(context);
+                return Column(
+                  children: [
+                    const HeaderTextWidget(
+                      title: "Cart",
+                      isCart: true,
+                    ),
+                    state is GetCartProductsLoading
+                        ? Center(
+                            child: CircularProgressIndicator(
+                            color: cPrimaryColor,
+                          ))
+                        : SizedBox(
+                            height: .6.sh,
+                            child: ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: cubit.cartProducts.length,
+                              itemBuilder: (context, index) {
+                                final item = cubit.cartProducts[index];
+                                return CartWidget(
+                                  image: item['image'],
+                                  name: item['name'],
+                                  price: item['price'].toString(),
+                                  quantity: item['quantity'],
+                                  onRemove: () {
+                                    cubit.deleteProductFromCart(
+                                        item['productId']);
+                                  },
+                                );
+                              },
+                            ),
+                          ),
+                    const Spacer(),
+                    // DefaultButton(
+                    //     height: .05.sh,
+                    //     color: cPrimaryColor,
+                    //     onTap: () {
+                    //       context.pushNamed(Routes.layoutScreen.name);
+                    //     },
+                    //     text: "Add more products"),
+                    SizedBox(height: .02.sh),
+                    DefaultButton(
+                      height: .05.sh,
+                      color: Colors.white,
+                      text: "Complete the order",
+                      borderColor: cPrimaryColor,
+                      textColor: cPrimaryColor,
+                      onTap: () {
+                        context.pushNamed(Routes.thanksScreen.name);
+                      },
+                    ),
+                    SizedBox(height: .02.sh),
+                  ],
+                );
+              },
+            ),
           ),
         ),
       ),

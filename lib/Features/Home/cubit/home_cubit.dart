@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 
+import '../../Product/View/Screens/cart_screen.dart' show CartScreen;
 import '../../Profile/View/Screens/profile_screen.dart';
 import '../View/Screens/product_screen.dart';
 import '../View/Screens/recycle_screen.dart';
@@ -26,24 +27,10 @@ class HomeCubit extends Cubit<HomeState> {
 
   List<Widget> screens = [
     const HomeScreen(),
-    const ProductScreen(),
+    const CartScreen(),
     const RecycleScreen(),
     const ProfileScreen()
   ];
-
-  int productCount = 1;
-
-  void increaseProductCount() {
-    productCount++;
-    emit(ChangeProductCountState());
-  }
-
-  void decreaseProductCount() {
-    if (productCount > 1) {
-      productCount--;
-      emit(ChangeProductCountState());
-    }
-  }
 
   List<Map<String, dynamic>> bestSellerProducts = [];
   List<Map<String, dynamic>> products = [];
