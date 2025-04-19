@@ -8,8 +8,8 @@ import '../../../Product/View/Widgets/thankyou_order_details_widget.dart';
 import '../Widgets/header_text_widget.dart';
 
 class OrderDetailsScreen extends StatelessWidget {
+  
   const OrderDetailsScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

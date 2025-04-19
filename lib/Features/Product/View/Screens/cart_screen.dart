@@ -2,7 +2,6 @@ import 'package:another_chance/Core/Shared/default_button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-
 import '../../../../Core/Const/colors.dart';
 import '../../../../routing/routes.dart';
 import '../../../Profile/View/Widgets/header_text_widget.dart';
@@ -20,11 +19,11 @@ class CartScreen extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: .02.sw),
           child: Column(
             children: [
-              HeaderTextWidget(
+              const HeaderTextWidget(
                 title: "Cart",
               ),
-              CartWidget(),
-              Spacer(),
+              const CartWidget(),
+              const Spacer(),
               DefaultButton(
                   height: .05.sh,
                   color: cPrimaryColor,

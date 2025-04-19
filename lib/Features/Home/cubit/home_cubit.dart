@@ -31,17 +31,17 @@ class HomeCubit extends Cubit<HomeState> {
     const ProfileScreen()
   ];
 
-  int esimCount = 1;
+  int productCount = 1;
 
   void increaseProductCount() {
-    esimCount++;
-    emit(ChangeEsimCountState());
+    productCount++;
+    emit(ChangeProductCountState());
   }
 
   void decreaseProductCount() {
-    if (esimCount > 1) {
-      esimCount--;
-      emit(ChangeEsimCountState());
+    if (productCount > 1) {
+      productCount--;
+      emit(ChangeProductCountState());
     }
   }
 

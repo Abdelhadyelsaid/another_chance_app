@@ -1,4 +1,5 @@
 import 'package:another_chance/Features/Home/cubit/home_cubit.dart';
+import 'package:another_chance/Features/Product/cubit/product_cubit.dart';
 import 'package:another_chance/routing/router.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -34,6 +35,7 @@ class MyApp extends StatelessWidget {
         providers: [
           BlocProvider(create: (context) => AuthCubit()),
           BlocProvider(create: (context) => HomeCubit()),
+          BlocProvider(create: (context) => ProductCubit()),
         ],
         child: MaterialApp.router(
           debugShowCheckedModeBanner: false,

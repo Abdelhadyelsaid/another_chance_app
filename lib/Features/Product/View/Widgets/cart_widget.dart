@@ -35,9 +35,9 @@ class CartWidget extends StatelessWidget {
             children: [
               IconButton(onPressed: () {}, icon: Icon(Icons.close)),
               Spacer(), // Pushes QuantityWidget to center
-              QuantityWidget(
-                isCart: true,
-              ),
+              // QuantityWidget(
+              //   isCart: true,
+              // ),
               Spacer(), // Pushes everything evenly
             ],
           )
