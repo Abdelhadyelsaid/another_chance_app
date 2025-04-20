@@ -11,7 +11,6 @@ class OrdersScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       body: BlocProvider(
         create: (context) => OrdersCubit()..getOrders(),
         child: Padding(

@@ -13,7 +13,8 @@ class OrderCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        context.pushNamed(Routes.ordersDetailsScreen.name);
+        context.pushNamed(Routes.ordersDetailsScreen.name,
+            extra: {"orderDetails": orders});
       },
       child: Card(
         color: Colors.white,

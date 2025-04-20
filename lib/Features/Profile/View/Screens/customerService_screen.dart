@@ -17,21 +17,18 @@ class CustomerServiceScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: SafeArea(
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: .05.sw),
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    const HeaderTextWidget(
-                      title: "Customer Service",
-                    ),
-                    SizedBox(
-                      height: 0.05.sh,
-                    ),
-                    ContactWidget(),
-                  ],
+          padding: EdgeInsets.symmetric(horizontal: .05.sw),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                const HeaderTextWidget(
+                  title: "Customer Service",
                 ),
-              ),
-            )),
+                SizedBox(height: .7.sh, child: const ContactUsWidget()),
+              ],
+            ),
+          ),
+        )),
       ),
     );
   }
