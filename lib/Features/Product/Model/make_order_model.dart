@@ -2,6 +2,7 @@ class MakeOrderModel {
   MakeOrderModel({
     required this.data,
   });
+
   final Data? data;
 
   factory MakeOrderModel.fromJson(Map<String, dynamic> json) {
@@ -20,58 +21,42 @@ class MakeOrderModel {
 class Data {
   Data({
     required this.id,
-    required this.storeId,
-    required this.storeName,
     required this.products,
     required this.totalPrice,
     required this.createdAt,
     required this.orderId,
-    required this.logo,
-    required this.phone,
-    required this.location,
+    required this.orderStatus,
   });
 
   final String? id;
-  final String? storeId;
-  final String? storeName;
   final List<OrderProduct> products;
   final int? totalPrice;
   final String? createdAt;
-  final String? logo;
   final int? orderId;
-  final String? phone;
-  final String? location;
+  final String? orderStatus;
 
   factory Data.fromJson(Map<String, dynamic> json) {
     return Data(
       id: json["id"],
-      storeId: json["storeId"],
-      storeName: json["storeName"],
       products: json["products"] == null
           ? []
           : List<OrderProduct>.from(
-          json["products"]!.map((x) => OrderProduct.fromJson(x))),
+              json["products"]!.map((x) => OrderProduct.fromJson(x))),
       totalPrice: json["totalPrice"],
       createdAt: json["createdAt"],
       orderId: json["orderId"],
-      logo: json["logo"],
-      phone: json["phone"],
-      location: json["location"],
+      orderStatus: json['orderStatus'],
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'storeId': storeId,
-      'storeName': storeName,
       'products': products.map((x) => x.toMap()).toList(),
       'totalPrice': totalPrice,
       'createdAt': createdAt,
       'orderId': orderId,
-      'logo': logo,
-      'phone': phone,
-      'location': location,
+      'orderStatus': orderStatus,
     };
   }
 }
@@ -82,10 +67,12 @@ class OrderProduct {
     required this.name,
     required this.price,
     required this.count,
+    required this.image,
   });
 
   final String? id;
   final String? name;
+  final String? image;
   final int? price;
   final int? count;
 
@@ -93,6 +80,7 @@ class OrderProduct {
     return OrderProduct(
       id: json["id"],
       name: json["name"],
+      image: json["image"],
       price: json["price"],
       count: json["count"],
     );
@@ -104,8 +92,7 @@ class OrderProduct {
       'name': name,
       'price': price,
       'count': count,
+      'image': image,
     };
   }
 }
-
-

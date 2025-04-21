@@ -40,6 +40,7 @@ class ProfileCubit extends Cubit<ProfileState> {
           phone = userData!['phone_number'];
           userId = user.uid;
           CacheHelper.saveData(key: "userID", value: user.uid);
+          CacheHelper.saveData(key: "userName", value: firstName);
           log("User Id: $userId");
         }
         log("This is user Data:$userData}");
@@ -52,21 +53,21 @@ class ProfileCubit extends Cubit<ProfileState> {
     }
   }
 
-  // Future<void> updateAccountData({String? phone, String? email}) async {
-  //   final FirebaseFirestore firestore = FirebaseFirestore.instance;
-  //   User? user = FirebaseAuth.instance.currentUser;
-  //   try {
-  //     emit(UpdateAccountDataLoading());
-  //     await firestore.collection('users').doc(user!.uid).update({
-  //       'phone_number': phone,
-  //       "email": email,
-  //     });
-  //
-  //     emit(UpdateAccountDataSuccess());
-  //   } catch (e) {
-  //     log(e.toString());
-  //     emit(UpdateAccountDataError());
-  //     throw Exception("failed to update account data");
-  //   }
-  // }
+// Future<void> updateAccountData({String? phone, String? email}) async {
+//   final FirebaseFirestore firestore = FirebaseFirestore.instance;
+//   User? user = FirebaseAuth.instance.currentUser;
+//   try {
+//     emit(UpdateAccountDataLoading());
+//     await firestore.collection('users').doc(user!.uid).update({
+//       'phone_number': phone,
+//       "email": email,
+//     });
+//
+//     emit(UpdateAccountDataSuccess());
+//   } catch (e) {
+//     log(e.toString());
+//     emit(UpdateAccountDataError());
+//     throw Exception("failed to update account data");
+//   }
+// }
 }

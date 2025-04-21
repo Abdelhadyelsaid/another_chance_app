@@ -1,17 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-
+import 'package:intl/intl.dart';
 import '../../../../routing/routes.dart';
 
 class OrderCard extends StatelessWidget {
-  const OrderCard({super.key});
+  const OrderCard({super.key, required this.orders});
+
+  final Map<String, dynamic> orders;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        context.pushNamed(Routes.ordersDetailsScreen.name);
+        context.pushNamed(Routes.ordersDetailsScreen.name,
+            extra: {"orderDetails": orders});
       },
       child: Card(
         color: Colors.white,
@@ -24,10 +27,10 @@ class OrderCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text.rich(
+                    Text.rich(
                       TextSpan(
                         children: [
-                          TextSpan(
+                          const TextSpan(
                             text: 'Order Number: ',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
@@ -35,8 +38,8 @@ class OrderCard extends StatelessWidget {
                             ),
                           ),
                           TextSpan(
-                            text: '12365',
-                            style: TextStyle(fontSize: 16),
+                            text: orders['orderId'].toString(),
+                            style: const TextStyle(fontSize: 16),
                           ),
                         ],
                       ),
@@ -44,11 +47,14 @@ class OrderCard extends StatelessWidget {
                     const SizedBox(height: 6),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: const [
-                        Text('20-2-2025', style: TextStyle(fontSize: 15)),
+                      children: [
                         Text(
-                          '1000 EGP',
-                          style: TextStyle(
+                            DateFormat('yyyy-MM-dd')
+                                .format(DateTime.parse(orders['createdAt'])),
+                            style: const TextStyle(fontSize: 15)),
+                        Text(
+                          '${orders['totalPrice'].toString()} EGP',
+                          style: const TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 15),
                         ),
                       ],
@@ -61,9 +67,9 @@ class OrderCard extends StatelessWidget {
                         color: const Color(0xFFE9F288),
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      child: const Text(
-                        'Shipping',
-                        style: TextStyle(
+                      child: Text(
+                        '${orders['orderStatus']}',
+                        style: const TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.w500,
                         ),
@@ -80,7 +86,12 @@ class OrderCard extends StatelessWidget {
                 width: 80,
                 child: Stack(
                   children: [
-                    Image.asset('assets/images/product.png'),
+                    Image.network(
+                      orders['products'][0]["image"],
+                      height: 80,
+                      width: 80,
+                      fit: BoxFit.cover,
+                    ),
                     Positioned(
                       right: 4,
                       bottom: 4,
@@ -90,9 +101,10 @@ class OrderCard extends StatelessWidget {
                           color: Colors.black.withOpacity(0.5),
                           borderRadius: BorderRadius.circular(12),
                         ),
-                        child: const Text(
-                          '+2',
-                          style: TextStyle(color: Colors.white, fontSize: 12),
+                        child: Text(
+                          '+${orders['products'].length.toString()}',
+                          style: const TextStyle(
+                              color: Colors.white, fontSize: 12),
                         ),
                       ),
                     ),

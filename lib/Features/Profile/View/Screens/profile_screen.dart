@@ -1,5 +1,7 @@
+import 'package:another_chance/Features/Profile/cubit/profile_cubit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../Core/Helper/cache_helper.dart';
@@ -30,30 +32,43 @@ class ProfileScreen extends StatelessWidget {
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(right: 5, top: 8.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                              "${CacheHelper.getData(key: "firstName")}" ??
-                                  "Test",
-                              style: const TextStyle(
-                                color: Colors.black,
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                                fontFamily: "Readex Pro",
-                              )),
-                          SizedBox(
-                            height: .01.sh,
-                          ),
-                          Text(
-                              "${CacheHelper.getData(key: "phone") ?? CacheHelper.getData(key: "email")}" ??
-                                  "example@gmail.com",
-                              style: const TextStyle(
-                                color: Colors.black,
-                                fontSize: 12,
-                                fontFamily: "Readex Pro",
-                              )),
-                        ],
+                      child: BlocProvider(
+                        create: (context) => ProfileCubit()..getAccountData(),
+                        child: BlocConsumer<ProfileCubit, ProfileState>(
+                          listener: (context, state) {},
+                          builder: (context, state) {
+                            var cubit = ProfileCubit.get(context);
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: .03.sw),
+                                  child: Text(cubit.firstName,
+                                      style: const TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: "Readex Pro",
+                                      )),
+                                ),
+                                SizedBox(
+                                  height: .01.sh,
+                                ),
+                                Padding(
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: .03.sw),
+                                  child: Text(cubit.email,
+                                      style: const TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 12,
+                                        fontFamily: "Readex Pro",
+                                      )),
+                                ),
+                              ],
+                            );
+                          },
+                        ),
                       ),
                     ),
                   ],
@@ -73,7 +88,7 @@ class ProfileScreen extends StatelessWidget {
                 title: "Orders",
                 svgIcon: 'assets/icons/left_arrow_profile.svg',
                 onTap: () {
-                   context.pushNamed(Routes.ordersScreen.name);
+                  context.pushNamed(Routes.ordersScreen.name);
                 },
               ),
               ProfileWidget(

@@ -1,3 +1,4 @@
+import 'package:another_chance/Features/Profile/View/Widgets/order_details_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -8,25 +9,26 @@ import '../../../Product/View/Widgets/thankyou_order_details_widget.dart';
 import '../Widgets/header_text_widget.dart';
 
 class OrderDetailsScreen extends StatelessWidget {
-  const OrderDetailsScreen({super.key});
+  const OrderDetailsScreen({super.key, required this.orderDetails});
+
+  final Map<String, dynamic> orderDetails;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: cBackground,
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: .04.sw),
         child: Column(
           children: [
-            const SafeArea(
+             SafeArea(
               child: HeaderTextWidget(
-                title: "Order Number: 1234",
+                title: "Order Number: ${orderDetails["orderId"]}",
               ),
             ),
             SizedBox(
               height: .1.sh,
             ),
-            const ThankYouOrderDetailsWidget(),
+            OrderDetailsWidget(orderDetails: orderDetails),
             const Spacer(),
             DefaultButton(
               height: .05.sh,
@@ -43,7 +45,7 @@ class OrderDetailsScreen extends StatelessWidget {
               borderColor: cPrimaryColor,
               textColor: cPrimaryColor,
               onTap: () {
-                context.go(Routes.customerServiceScreen.name);
+                context.pushNamed(Routes.customerServiceScreen.name);
               },
             ),
             SizedBox(height: .02.sh),

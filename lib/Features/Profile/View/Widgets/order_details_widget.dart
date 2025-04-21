@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../Core/Const/colors.dart';
 import '../../../../Core/Const/styles.dart';
-import '../../Model/make_order_model.dart';
 
-class ThankYouOrderDetailsWidget extends StatelessWidget {
-  final MakeOrderModel? makeOrderModel;
+class OrderDetailsWidget extends StatelessWidget {
+  final Map<String, dynamic> orderDetails;
 
-  const ThankYouOrderDetailsWidget({super.key, this.makeOrderModel});
+  const OrderDetailsWidget({super.key, required this.orderDetails});
 
   @override
   Widget build(BuildContext context) {
@@ -72,11 +71,11 @@ class ThankYouOrderDetailsWidget extends StatelessWidget {
                   scrollDirection: Axis.vertical,
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
-                  itemCount: makeOrderModel!.data!.products.length,
+                  itemCount: orderDetails["products"].length,
                   separatorBuilder: (context, index) => SizedBox(height: 6.h),
                   itemBuilder: (context, index) {
-                    final product = makeOrderModel!.data!.products[index];
-                    final totalPrice = product.price! * product.count!;
+                    final product = orderDetails["products"][index];
+                    final totalPrice = product["price"] * product["count"];
 
                     return Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -84,7 +83,7 @@ class ThankYouOrderDetailsWidget extends StatelessWidget {
                         Expanded(
                           flex: 2,
                           child: Text(
-                            "${product.name}",
+                            "${product["name"]}",
                             style: Styles.valueStyle(),
                           ),
                         ),
@@ -92,7 +91,7 @@ class ThankYouOrderDetailsWidget extends StatelessWidget {
                           flex: 1,
                           child: Center(
                             child: Text(
-                              "${product.count}",
+                              "${product["count"]}",
                               style: Styles.valueStyle(),
                             ),
                           ),
@@ -102,7 +101,7 @@ class ThankYouOrderDetailsWidget extends StatelessWidget {
                           child: Align(
                             alignment: Alignment.centerRight,
                             child: Text(
-                              "$totalPrice EGP",
+                              "${product["price"]} EGP",
                               style: Styles.valueStyle(),
                             ),
                           ),
@@ -124,7 +123,7 @@ class ThankYouOrderDetailsWidget extends StatelessWidget {
           ),
           child: Center(
             child: Text(
-              "Total: ${makeOrderModel!.data!.totalPrice} EGP",
+              "Total: ${orderDetails["totalPrice"]} EGP",
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 14.sp,

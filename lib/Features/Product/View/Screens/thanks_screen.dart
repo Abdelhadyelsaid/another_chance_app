@@ -1,14 +1,19 @@
+import 'package:another_chance/Features/Product/Model/make_order_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-
+import 'package:intl/intl.dart';
 import '../../../../Core/Const/colors.dart';
+import '../../../../Core/Const/styles.dart';
+import '../../../../Core/Helper/cache_helper.dart';
 import '../../../../Core/Shared/default_button_widget.dart';
 import '../../../../routing/routes.dart';
 import '../Widgets/thankyou_order_details_widget.dart';
 
 class ThanksScreen extends StatelessWidget {
-  const ThanksScreen({super.key});
+  const ThanksScreen({super.key, required this.makeOrderModel});
+
+  final MakeOrderModel makeOrderModel;
 
   @override
   Widget build(BuildContext context) {
@@ -35,39 +40,41 @@ class ThanksScreen extends StatelessWidget {
                   fontSize: 22,
                 ),
               ),
-              const Text(
-                "John!",
-                style: TextStyle(
+              Text(
+                "${CacheHelper.getData(key: "userName")}!",
+                style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 22,
                 ),
               ),
               SizedBox(
-                height: .03.sh,
+                height: .05.sh,
               ),
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Text("Order Number: 12345"),
-                  Text("Order Date: 20-2-2025"),
+                  Text("Order Number: ${makeOrderModel.data!.orderId}",
+                      style: Styles.labelStyle().copyWith(fontSize: 17.sp)),
                 ],
               ),
               SizedBox(
-                height: .03.sh,
+                height: .02.sh,
               ),
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
-                    "Your Order",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 22,
-                    ),
+                    "Order Date: ${DateFormat('yyyy-MM-dd').format(DateTime.parse(makeOrderModel.data!.createdAt!))}",
+                    style: Styles.labelStyle().copyWith(fontSize: 17.sp),
                   ),
                 ],
               ),
-              ThankYouOrderDetailsWidget(),
+              SizedBox(
+                height: .04.sh,
+              ),
+              ThankYouOrderDetailsWidget(
+                makeOrderModel: makeOrderModel,
+              ),
               const Spacer(),
               DefaultButton(
                 height: .05.sh,
@@ -85,7 +92,7 @@ class ThanksScreen extends StatelessWidget {
                 borderColor: cPrimaryColor,
                 textColor: cPrimaryColor,
                 onTap: () {
-                  context.go(Routes.layoutScreen.name);
+                  context.goNamed(Routes.layoutScreen.name);
                 },
               ),
               SizedBox(height: .02.sh),

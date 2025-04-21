@@ -15,12 +15,13 @@ import '../Features/Authentication/View/Screens/forget_password_screen.dart';
 import '../Features/Authentication/View/Screens/reset_password_otp_screen.dart';
 import '../Features/Profile/View/Screens/contact_screen.dart';
 import '../Features/Profile/View/Screens/order_details_screen.dart';
+import '../Features/Search/view/search_screen.dart';
 
 class CustomRouter {
   static final rootNavigatorKey = GlobalKey<NavigatorState>();
   static final GoRouter _router = GoRouter(
       navigatorKey: rootNavigatorKey,
-      initialLocation: Routes.layoutScreen.path,
+      initialLocation: Routes.onBoarding.path,
       routes: _routes);
 
   static GoRouter get router => _router;
@@ -38,7 +39,8 @@ class CustomRouter {
     cartScreen,
     thanksScreen,
     ordersScreen,
-    ordersDetailsScreen
+    ordersDetailsScreen,
+    searchScreen
   ];
 
   static final loginScreen = GoRoute(
@@ -83,7 +85,9 @@ class CustomRouter {
       name: Routes.productScreen.name,
       builder: (context, state) {
         final details = state.extra as Map<String, dynamic>;
-        return  ProductDetailsScreen(productId: details["productId"],);
+        return ProductDetailsScreen(
+          productId: details["productId"],
+        );
       });
   static final accountInfoScreen = GoRoute(
       path: Routes.accountInfoScreen.path,
@@ -113,7 +117,10 @@ class CustomRouter {
       path: Routes.thanksScreen.path,
       name: Routes.thanksScreen.name,
       builder: (context, state) {
-        return const ThanksScreen();
+        final details = state.extra as Map<String, dynamic>;
+        return ThanksScreen(
+          makeOrderModel: details["makeOrderModel"],
+        );
       });
   static final ordersScreen = GoRoute(
       path: Routes.ordersScreen.path,
@@ -125,9 +132,17 @@ class CustomRouter {
       path: Routes.ordersDetailsScreen.path,
       name: Routes.ordersDetailsScreen.name,
       builder: (context, state) {
-        return const OrderDetailsScreen();
+        final details = state.extra as Map<String, dynamic>;
+        return OrderDetailsScreen(
+          orderDetails: details['orderDetails'],
+        );
       });
-
+  static final searchScreen = GoRoute(
+      path: Routes.searchScreen.path,
+      name: Routes.searchScreen.name,
+      builder: (context, state) {
+        return SearchScreen();
+      });
 }
 
 class RouterTransitions {
