@@ -170,7 +170,8 @@ class LoginScreen extends StatelessWidget {
                                           .isNotEmpty &&
                                       cubit.loginPasswordController.text
                                           .isNotEmpty) {
-                                    cubit.login( cubit.loginPhoneController.text , cubit.loginPasswordController.text);
+                                    cubit.login(cubit.loginPhoneController.text,
+                                        cubit.loginPasswordController.text);
                                   } else {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
@@ -206,6 +207,15 @@ class LoginScreen extends StatelessWidget {
                             SizedBox(
                               height: height * 0.05,
                             ),
+                            DefaultButton(
+                                borderRadius: BorderRadius.circular(5),
+                                height: height * 0.06,
+                                width: .6.sw,
+                                color: Colors.grey,
+                                text: "Request a plastic collection!",
+                                onTap: () {
+                                  context.pushNamed(Routes.requestCollectionScreen.name);
+                                }),
                           ],
                         ),
                       ),

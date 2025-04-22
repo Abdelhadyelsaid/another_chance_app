@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-
 import '../../../../Core/Const/colors.dart';
 import '../../../../routing/routes.dart';
 import '../Widgets/product_widget.dart';

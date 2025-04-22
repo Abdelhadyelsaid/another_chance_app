@@ -3,6 +3,7 @@ import 'package:another_chance/Features/Authentication/View/Screens/login_screen
 import 'package:another_chance/Features/Home/View/Screens/layout_screen.dart';
 import 'package:another_chance/Features/Home/View/Screens/productDetails_screen.dart';
 import 'package:another_chance/Features/OnBoarding/View/Screens/onboarding_screen.dart';
+import 'package:another_chance/Features/OnBoarding/View/Screens/request_collection_screen.dart';
 import 'package:another_chance/Features/Product/View/Screens/cart_screen.dart';
 import 'package:another_chance/Features/Product/View/Screens/thanks_screen.dart';
 import 'package:another_chance/Features/Profile/View/Screens/account_info_screen.dart';
@@ -40,7 +41,8 @@ class CustomRouter {
     thanksScreen,
     ordersScreen,
     ordersDetailsScreen,
-    searchScreen
+    searchScreen,
+    requestCollectionScreen
   ];
 
   static final loginScreen = GoRoute(
@@ -141,7 +143,13 @@ class CustomRouter {
       path: Routes.searchScreen.path,
       name: Routes.searchScreen.name,
       builder: (context, state) {
-        return SearchScreen();
+        return const SearchScreen();
+      });
+  static final requestCollectionScreen = GoRoute(
+      path: Routes.requestCollectionScreen.path,
+      name: Routes.requestCollectionScreen.name,
+      builder: (context, state) {
+        return const RequestCollectionScreen();
       });
 }
 
