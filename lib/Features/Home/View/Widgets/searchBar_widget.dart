@@ -14,11 +14,11 @@ class SearchTextfieldWidget extends StatelessWidget {
         context.pushNamed(Routes.searchScreen.name);
       },
       child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 25.w),
+          padding: EdgeInsets.only(right:  .05.sw),
           child: DefaultTextFormField(
             enabled: false,
             borderRadius: 10,
-            borderColor: Colors.white,
+            borderColor: Colors.grey.withAlpha(120),
             prefixIcon:Icon(Icons.search) ,
             hintText: "Search Products..." ,
           )),

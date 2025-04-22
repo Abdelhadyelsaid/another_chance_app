@@ -147,7 +147,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                 ),
                               ),
                               SizedBox(height: 8.h),
-                              ProductDescriptionCard(),
+                              ProductDescriptionCard(storeSnapshot: cubit.productSnapshot!,),
                               SizedBox(height: 15.h),
                               const Text(
                                 "Related Products",

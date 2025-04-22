@@ -24,13 +24,15 @@ class SearchScreen extends StatelessWidget {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    Directionality(
-                      textDirection: TextDirection.rtl,
+
+                    Padding(
+                      padding:  EdgeInsets.symmetric(horizontal: .05.sw,vertical: .03.sh),
                       child: DefaultTextFormField(
                         cursorColor: cPrimaryColor.withAlpha(120),
                         enabled: true,
+                  
                         borderRadius: 10,
-                        borderColor: Colors.white,
+                        borderColor: Colors.grey.withAlpha(120),
                         prefixIcon: Icon(
                           Icons.search,
                           color: cPrimaryColor,

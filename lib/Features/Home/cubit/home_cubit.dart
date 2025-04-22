@@ -9,7 +9,6 @@ import 'package:meta/meta.dart';
 
 import '../../Product/View/Screens/cart_screen.dart' show CartScreen;
 import '../../Profile/View/Screens/profile_screen.dart';
-import '../View/Screens/product_screen.dart';
 import '../View/Screens/recycle_screen.dart';
 
 part 'home_state.dart';
@@ -18,7 +17,7 @@ class HomeCubit extends Cubit<HomeState> {
   HomeCubit() : super(HomeInitial());
 
   static HomeCubit get(context) => BlocProvider.of<HomeCubit>(context);
-  int selectedIndex = 0;
+  int selectedIndex = 3;
 
   void changeIndex(int index) {
     selectedIndex = index;

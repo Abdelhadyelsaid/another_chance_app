@@ -34,7 +34,7 @@ class HomeScreen extends StatelessWidget {
                 SizedBox(
                   height: 0.05.sh,
                 ),
-                const SearchTextfieldWidget(),
+                const Center(child: SearchTextfieldWidget()),
                 SizedBox(
                   height: .05.sh,
                 ),
