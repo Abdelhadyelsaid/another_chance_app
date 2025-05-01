@@ -4,7 +4,9 @@ import 'package:another_chance/Features/OnBoarding/Cubit/on_boadring_cubit.dart'
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import '../../../../Core/Shared/default_textform_widget.dart';
+import '../../../../Core/Shared/snack_bar.dart';
 import '../Widgets/moreImages_widget.dart';
 
 class RequestCollectionScreen extends StatelessWidget {
@@ -17,7 +19,22 @@ class RequestCollectionScreen extends StatelessWidget {
       body: BlocProvider(
         create: (context) => OnBoardingCubit(),
         child: BlocConsumer<OnBoardingCubit, OnBoardingState>(
-          listener: (context, state) {},
+          listener: (context, state) {
+            if (state is RequestSuccessState) {
+              context.pop();
+              customSnackBarr(
+                  context: context,
+                  text:
+                      "Your request is being processed. One of our representatives will contact you soon.",
+                  color: Colors.green);
+            }
+            if (state is RequestErrorState) {
+              customSnackBarr(
+                  context: context,
+                  text: "something went wrong!",
+                  color: Colors.red);
+            }
+          },
           builder: (context, state) {
             var cubit = OnBoardingCubit.get(context);
             return SingleChildScrollView(
@@ -54,7 +71,7 @@ class RequestCollectionScreen extends StatelessWidget {
                       DefaultTextFormField(
                         textInputType: TextInputType.text,
                         textDirection: TextDirection.ltr,
-                        controller: cubit.loginPhoneController,
+                        controller: cubit.nameController,
                         onChanged: (value) {},
                       ),
                       SizedBox(
@@ -76,7 +93,7 @@ class RequestCollectionScreen extends StatelessWidget {
                       DefaultTextFormField(
                         textInputType: TextInputType.text,
                         textDirection: TextDirection.ltr,
-                        controller: cubit.loginPhoneController,
+                        controller: cubit.emailController,
                         onChanged: (value) {},
                       ),
                       SizedBox(
@@ -98,7 +115,7 @@ class RequestCollectionScreen extends StatelessWidget {
                       DefaultTextFormField(
                         textInputType: TextInputType.phone,
                         textDirection: TextDirection.ltr,
-                        controller: cubit.loginPhoneController,
+                        controller: cubit.phoneController,
                         onChanged: (value) {},
                       ),
                       SizedBox(
@@ -154,9 +171,9 @@ class RequestCollectionScreen extends StatelessWidget {
                         height: 0.01.sh,
                       ),
                       DefaultTextFormField(
-                        textInputType: TextInputType.phone,
+                        textInputType: TextInputType.text,
                         textDirection: TextDirection.ltr,
-                        controller: cubit.loginPhoneController,
+                        controller: cubit.addressController,
                         onChanged: (value) {},
                       ),
                       SizedBox(
@@ -178,20 +195,33 @@ class RequestCollectionScreen extends StatelessWidget {
                       DefaultTextFormField(
                         textInputType: TextInputType.text,
                         textDirection: TextDirection.ltr,
-                        controller: cubit.loginPhoneController,
+                        controller: cubit.notesController,
                         maxLines: 7,
                         onChanged: (value) {},
                       ),
                       SizedBox(
                         height: 0.04.sh,
                       ),
-                      DefaultButton(
-                        width: .8.sw,
-                        height: .05.sh,
-                        onTap: () async {},
-                        color: cPrimaryColor,
-                        text: 'Request a Collection',
-                      ),
+                      state is RequestLoadingState
+                          ? CircularProgressIndicator(
+                              color: cPrimaryColor,
+                            )
+                          : DefaultButton(
+                              width: .8.sw,
+                              height: .05.sh,
+                              onTap: () async {
+                                if (cubit.nameController.text.isNotEmpty &&
+                                    cubit.emailController.text.isNotEmpty &&
+                                    cubit.addressController.text.isNotEmpty &&
+                                    cubit.phoneController.text.isNotEmpty &&
+                                    cubit.notesController.text.isNotEmpty &&
+                                    cubit.imageFiles.isNotEmpty) {
+                                  await cubit.requestCollection();
+                                }
+                              },
+                              color: cPrimaryColor,
+                              text: 'Request a Collection',
+                            ),
                       SizedBox(
                         height: 0.05.sh,
                       ),

@@ -1,3 +1,4 @@
+import 'package:another_chance/Features/Home/cubit/home_cubit.dart';
 import 'package:another_chance/Features/Product/cubit/product_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,6 +8,7 @@ import '../../../../Core/Const/colors.dart';
 import '../../../../Core/Shared/snack_bar.dart';
 import '../../../../routing/routes.dart';
 import '../Widgets/description_widget.dart';
+import '../Widgets/product_widget.dart';
 import '../Widgets/quantity_widget.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
@@ -147,8 +149,10 @@ class ProductDetailsScreen extends StatelessWidget {
                                 ),
                               ),
                               SizedBox(height: 8.h),
-                              ProductDescriptionCard(storeSnapshot: cubit.productSnapshot!,),
-                              SizedBox(height: 15.h),
+                              ProductDescriptionCard(
+                                storeSnapshot: cubit.productSnapshot!,
+                              ),
+                              SizedBox(height: 30.h),
                               const Text(
                                 "Related Products",
                                 style: TextStyle(
@@ -156,26 +160,49 @@ class ProductDetailsScreen extends StatelessWidget {
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              // GridView.builder(
-                              //   gridDelegate:
-                              //       const SliverGridDelegateWithFixedCrossAxisCount(
-                              //     crossAxisCount: 2, // Number of columns
-                              //     crossAxisSpacing: 10.0, // Spacing between columns
-                              //     mainAxisSpacing: 10.0, // Spacing between rows
-                              //     childAspectRatio:
-                              //         0.75, // Adjust based on your card size
-                              //   ),
-                              //   shrinkWrap: true,
-                              //   physics: const NeverScrollableScrollPhysics(),
-                              //   itemCount: 4,
-                              //   itemBuilder: (context, index) {
-                              //     return InkWell(
-                              //         onTap: () {
-                              //           context.pushNamed(Routes.productScreen.name);
-                              //         },
-                              //         child: ProductWidget());
-                              //   },
-                              // ),
+                              BlocProvider(
+                                create: (context) => HomeCubit()
+                                  ..getRecommendedProducts(
+                                      productId: productId),
+                                child: BlocConsumer<HomeCubit, HomeState>(
+                                  listener: (context, state) {},
+                                  builder: (context, state) {
+                                    return state is GetRecommendedLoading
+                                        ? Center(
+                                            child: CircularProgressIndicator(
+                                            color: cPrimaryColor,
+                                          ))
+                                        : GridView.builder(
+                                            gridDelegate:
+                                                const SliverGridDelegateWithFixedCrossAxisCount(
+                                              crossAxisCount: 2,
+                                              // Number of columns
+                                              crossAxisSpacing: 10.0,
+                                              // Spacing between columns
+                                              mainAxisSpacing: 10.0,
+                                              // Spacing between rows
+                                              childAspectRatio:
+                                                  0.75, // Adjust based on your card size
+                                            ),
+                                            shrinkWrap: true,
+                                            physics:
+                                                const NeverScrollableScrollPhysics(),
+                                            itemCount: context
+                                                .read<HomeCubit>()
+                                                .recommendedProducts
+                                                .length,
+                                            itemBuilder: (context, index) {
+                                              return ProductWidget(
+                                                isRecommendations: true,
+                                                products: context
+                                                    .read<HomeCubit>()
+                                                    .recommendedProducts[index],
+                                              );
+                                            },
+                                          );
+                                  },
+                                ),
+                              ),
                               SizedBox(height: .1.sh),
                             ],
                           ),

@@ -1,5 +1,7 @@
 import 'dart:developer';
 
+import 'package:another_chance/Core/Const/app_urls.dart';
+import 'package:another_chance/Core/Helper/dio_helper.dart';
 import 'package:another_chance/Features/Home/View/Screens/home_screen.dart';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -34,6 +36,7 @@ class HomeCubit extends Cubit<HomeState> {
   List<Map<String, dynamic>> bestSellerProducts = [];
   List<Map<String, dynamic>> products = [];
   List<Map<String, dynamic>> newArrivalsProducts = [];
+  List<Map<String, dynamic>> recommendedProducts = [];
 
   Future<void> getProducts() async {
     try {
@@ -57,13 +60,40 @@ class HomeCubit extends Cubit<HomeState> {
     }
   }
 
+
+  Future<void> getRecommendedProducts({required String productId}) async {
+    try {
+      emit(GetRecommendedLoading());
+
+      final response = await DioHelper.getData(url: AppUrls.recommendation + productId);
+
+      if (response.statusCode == 200) {
+        if (response.data is List) {
+          recommendedProducts = List<Map<String, dynamic>>.from(response.data);
+          log('Recommended products: $recommendedProducts');
+          emit(GetRecommendedSuccess());
+        } else {
+          log('Unexpected data format: ${response.data}');
+          emit(GetRecommendedError());
+        }
+      } else {
+        log('Failed response: ${response.data}');
+        emit(GetRecommendedError());
+      }
+    } catch (e) {
+      log('Error: $e');
+      emit(GetRecommendedError());
+      throw Exception("Failed to get recommended products");
+    }
+  }
+
+
   Future<void> getNewArrivalsProducts() async {
     try {
       emit(GetNewArrivalsProductsLoading());
       final querySnapshot = await FirebaseFirestore.instance
           .collection('products')
-          .orderBy('created_at',
-              descending: true)
+          .orderBy('created_at', descending: true)
           .get();
 
       final querySnapshotAllProducts =
@@ -84,7 +114,7 @@ class HomeCubit extends Cubit<HomeState> {
       }).toList();
       log("This is products: $newArrivalsProducts");
       emit(GetNewArrivalsProductsSuccess());
-    }on FirebaseException catch (e) {
+    } on FirebaseException catch (e) {
       log(e.toString());
       emit(GetNewArrivalsProductsError());
       throw Exception("Failed to get store products");

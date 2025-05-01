@@ -40,3 +40,9 @@ final class ImageSelectedSuccessState extends OnBoardingState {}
 final class ImageSelectedErrorState extends OnBoardingState {}
 
 final class ImageRemovedSuccessState extends OnBoardingState {}
+///Request a collection
+final class RequestLoadingState extends OnBoardingState {}
+
+final class RequestSuccessState extends OnBoardingState {}
+
+final class RequestErrorState extends OnBoardingState {}

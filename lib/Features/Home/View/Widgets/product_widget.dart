@@ -6,15 +6,18 @@ import '../../../../routing/routes.dart';
 
 class ProductWidget extends StatelessWidget {
   final Map<String, dynamic>? products;
+  final bool isRecommendations;
 
-  const ProductWidget({super.key, this.products});
+  const ProductWidget(
+      {super.key, this.products, this.isRecommendations = false});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: (){
-        context.pushNamed(Routes.productScreen.name,extra: {
-          "productId":products!["productId"]
+      onTap: () {
+        context.pushNamed(Routes.productScreen.name, extra: {
+          "productId":
+              isRecommendations ? products!["id"] : products!["productId"]
         });
       },
       child: Padding(

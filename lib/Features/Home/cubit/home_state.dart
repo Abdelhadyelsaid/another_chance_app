@@ -23,3 +23,10 @@ final class GetNewArrivalsProductsLoading extends HomeState {}
 final class GetNewArrivalsProductsSuccess extends HomeState {}
 
 final class GetNewArrivalsProductsError extends HomeState {}
+
+/// get recommended products
+final class GetRecommendedLoading extends HomeState {}
+
+final class GetRecommendedSuccess extends HomeState {}
+
+final class GetRecommendedError extends HomeState {}
