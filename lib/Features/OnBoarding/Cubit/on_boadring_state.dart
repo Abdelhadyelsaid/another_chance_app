@@ -5,16 +5,14 @@ sealed class OnBoardingState {}
 
 final class OnBoardingInitial extends OnBoardingState {}
 
-
 class MapPickerLoading extends OnBoardingState {}
 
 class MapPickerLoaded extends OnBoardingState {
-  final LatLng pickedLocation;
   final String address;
   final String city;
   final String area;
 
-  MapPickerLoaded(this.pickedLocation, this.address, this.city, this.area);
+  MapPickerLoaded(this.address, this.city, this.area);
 }
 
 class MapPickerError extends OnBoardingState {
@@ -36,3 +34,9 @@ class LocationDeniedState extends OnBoardingState {
 
   LocationDeniedState(this.message);
 }
+
+final class ImageSelectedSuccessState extends OnBoardingState {}
+
+final class ImageSelectedErrorState extends OnBoardingState {}
+
+final class ImageRemovedSuccessState extends OnBoardingState {}

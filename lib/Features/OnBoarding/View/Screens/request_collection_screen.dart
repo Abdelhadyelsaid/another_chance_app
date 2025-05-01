@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../Core/Shared/default_textform_widget.dart';
+import '../Widgets/moreImages_widget.dart';
 
 class RequestCollectionScreen extends StatelessWidget {
   const RequestCollectionScreen({super.key});
@@ -101,6 +102,42 @@ class RequestCollectionScreen extends StatelessWidget {
                         onChanged: (value) {},
                       ),
                       SizedBox(
+                        height: 0.01.sh,
+                      ),
+                      const Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text("Pick Images",
+                              style: TextStyle(
+                                  color: Color(0xFF626E7B),
+                                  fontFamily: "Readex Pro",
+                                  fontSize: 14)),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 0.01.sh,
+                      ),
+                      cubit.imageFiles.isEmpty
+                          ? GestureDetector(
+                              onTap: () async {
+                                await cubit.pickImages();
+                              },
+                              child: Container(
+                                height: 0.06.sh,
+                                width: 1.sw,
+                                color: const Color(0xffE6E6E6),
+                                child: const Center(
+                                    child: Text(
+                                  "Click here to pick Images!",
+                                  style: TextStyle(
+                                      color: Color(0xFF626E7B),
+                                      fontFamily: "Readex Pro",
+                                      fontSize: 12),
+                                )),
+                              ),
+                            )
+                          : const MoreImagesWidget(),
+                      SizedBox(
                         height: 0.02.sh,
                       ),
                       const Row(
@@ -180,7 +217,7 @@ Widget buildSectionHeader(String title) {
           title,
           style: TextStyle(
               fontSize: 18.sp,
-              color: Color(0xff545454),
+              color: const Color(0xff545454),
               fontFamily: "Tajawal",
               fontWeight: FontWeight.bold),
         ),
