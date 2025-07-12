@@ -1,3 +1,4 @@
+import 'package:another_chance/Core/Helper/cache_helper.dart';
 import 'package:another_chance/Features/Authentication/View/Screens/Signup_screen.dart';
 import 'package:another_chance/Features/Authentication/View/Screens/login_screen.dart';
 import 'package:another_chance/Features/Home/View/Screens/layout_screen.dart';
@@ -14,6 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../Features/Authentication/View/Screens/forget_password_screen.dart';
 import '../Features/Authentication/View/Screens/reset_password_otp_screen.dart';
+import '../Features/Home/View/Screens/product_screen.dart';
 import '../Features/Profile/View/Screens/contact_screen.dart';
 import '../Features/Profile/View/Screens/order_details_screen.dart';
 import '../Features/Search/view/search_screen.dart';
@@ -22,7 +24,7 @@ class CustomRouter {
   static final rootNavigatorKey = GlobalKey<NavigatorState>();
   static final GoRouter _router = GoRouter(
       navigatorKey: rootNavigatorKey,
-      initialLocation: Routes.onBoarding.path,
+      initialLocation: CacheHelper.getData(key: "token")== null? Routes.onBoarding.path: Routes.layoutScreen.path,
       routes: _routes);
 
   static GoRouter get router => _router;
@@ -42,6 +44,7 @@ class CustomRouter {
     ordersScreen,
     ordersDetailsScreen,
     searchScreen,
+    productsScreen,
     requestCollectionScreen
   ];
 
@@ -91,6 +94,18 @@ class CustomRouter {
           productId: details["productId"],
         );
       });
+
+  static final productsScreen = GoRoute(
+    path: Routes.productsScreen.path,
+    name: Routes.productsScreen.name,
+    builder: (context, state) {
+      final details = state.extra as Map<String, dynamic>;
+      return ProductScreen(
+        products: details["products"], title: details["title"],
+      );
+    },
+  );
+
   static final accountInfoScreen = GoRoute(
       path: Routes.accountInfoScreen.path,
       name: Routes.accountInfoScreen.name,

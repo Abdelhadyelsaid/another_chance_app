@@ -98,6 +98,13 @@ class ProfileScreen extends StatelessWidget {
                   context.pushNamed(Routes.contactScreen.name);
                 },
               ),
+              ProfileWidget(
+                title: "Request Plastic Collection",
+                svgIcon: 'assets/icons/left_arrow_profile.svg',
+                onTap: () {
+                  context.pushNamed(Routes.requestCollectionScreen.name);
+                },
+              ),
               SizedBox(
                 height: .1.sh,
               ),

@@ -23,6 +23,8 @@ class Routes {
       Route(name: "forgetPasswordOTPScreen", path: "/forget-password-otp");
   static final Route productScreen =
       Route(name: "productScreen", path: "/productScreen");
+  static final Route productsScreen =
+  Route(name: "productsScreen", path: "/productsScreen");
   static final Route accountInfoScreen =
       Route(name: "accountInfoScreen", path: "/accountInfoScreen");
   static final Route contactScreen =
